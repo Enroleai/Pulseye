@@ -15,7 +15,7 @@
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.15",
     "moment": "^2.29.1",
-    "mongoose": "^5.11.11",
+    "mongoose": "8.24.8",
     "nodemailer": "^6.4.17",
     "nodemon": "^2.0.7",
     "socket.io": "^2.4.1",
@@ -24,6 +24,6 @@
   "scripts": {
     "start": "nodemon index.js",
     "build": "cd client && npm run build",
-    "test": "node -r ./compat-node26.js test/socket-api.test.js && node -r ./compat-node26.js test/manager-auth.test.js"
+    "test": "node -r ./compat-node26.js test/socket-api.test.js && node -r ./compat-node26.js test/manager-auth.test.js && node -r ./compat-node26.js test/storage.test.js"
   }
 }

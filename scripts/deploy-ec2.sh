@@ -73,6 +73,16 @@ read_config() {
 }
 require_ready() {
   [[ "$DEPLOYMENT_READY" == 1 ]] || fail 'Application runtime is not approved. Configure app-required secrets and the actual native runtime, then set DEPLOYMENT_READY=1. Build and transfer are prohibited while readiness is 0.'
+  [[ -x /usr/local/bin/node && $(/usr/local/bin/node --version) == v22.23.4 ]] || fail 'The tested native Node v22.23.4 runtime is missing.'
+  local key value
+  for key in JWT_PRIVATE_KEY MONGODB_URI CORS_ORIGIN; do
+    value=$(grep -E "^${key}=" "$ENV_FILE" || true)
+    [[ -n "$value" && -n "${value#*=}" ]] || fail "Missing required application setting: $key"
+  done
+  local metadata_token attached_role
+  metadata_token=$(curl --noproxy '*' -fsS --max-time 5 -X PUT -H 'X-aws-ec2-metadata-token-ttl-seconds: 60' http://169.254.169.254/latest/api/token) || fail 'Cannot verify the dedicated storage role.'
+  attached_role=$(curl --noproxy '*' -fsS --max-time 5 -H "X-aws-ec2-metadata-token: $metadata_token" http://169.254.169.254/latest/meta-data/iam/security-credentials/) || fail 'No application S3 role is attached.'
+  [[ "$attached_role" == PulseyeProdAppS3Role ]] || fail 'The approved dedicated Pulseye storage role is not attached.'
 }
 preflight() {
   check_instance
@@ -149,9 +159,11 @@ with tarfile.open(archive, 'r:gz') as tar:
         name = member.name
         path = pathlib.PurePosixPath(name)
         parts = path.parts
+        provider_prefix = tuple('release/api/node_modules/aws-sdk/lib/credentials'.split('/'))
+        provider_source = parts[:len(provider_prefix)] == provider_prefix and (member.isdir() or (len(parts) == len(provider_prefix) + 1 and name.endswith(('.js', '.d.ts'))))
         if (not name or len(name) > 4096 or len(seen) >= 250000 or name.startswith('/') or '\\' in name or any(ord(c) < 32 for c in name)
                 or not parts or parts[0] != 'release' or '..' in parts
-                or any(p in forbidden or p.startswith('.env') or p.endswith(('.pem', '.key', '.p12', '.pfx')) for p in parts)
+                or any((p in forbidden and not (p == 'credentials' and index == len(provider_prefix) - 1 and provider_source)) or p.startswith('.env') or p.endswith(('.pem', '.key', '.p12', '.pfx')) for index, p in enumerate(parts))
                 or not (member.isdir() or member.isfile()) or member.mode & 0o7000):
             raise SystemExit('Unsafe release archive member; extraction refused.')
         canonical = str(path)
