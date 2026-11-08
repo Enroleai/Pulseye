@@ -1,0 +1,24 @@
+<app-card>
+  <h1 class="h5 dashheadding">Web Usage</h1>
+  <div *ngIf="loading">
+    <app-loadingspinner2></app-loadingspinner2>
+  </div>
+   <div *ngIf="!loading">
+      <div *ngIf="webUsescountgraph.length===0" class="mt-2 mess-show">No Data is available!</div>
+    </div>
+  <div style="overflow-x:auto;white-space: nowrap;">
+  <div style="width:50%">
+    <canvas id="web-doughnut-chart"></canvas>
+  </div>
+  <div class="standard">
+    <ul>
+      <li *ngFor="let item of text">
+        <div [ngStyle]="{'background-color': item['color']?item['color']:'white'}">
+        </div>
+        {{item['label']}} : {{item['data']}}%
+      </li>
+    </ul>
+  </div>
+</div>
+
+</app-card>

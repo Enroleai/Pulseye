@@ -1,0 +1,84 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="col-12 title-section">
+    <h3>Employee List</h3>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      
+        <div class="col-md-4 col-sm-12 add-btn-par">
+          <app-empbackdrop></app-empbackdrop>
+          <!-- <app-violationbackdrop></app-violationbackdrop> -->
+        </div>
+        <div class="col-md-8 col-sm-12" style="margin-bottom: 20px;">
+          <div class="row">
+          <div class="col-md-6 col-sm-12"></div>
+          <div class="col-md-6 col-sm-12 emp-pr">
+            <span>Search:</span>
+            <input type="serach" class="form-control search-box" [(ngModel)]="search" />
+          </div>
+        </div>
+      </div>
+     </div>
+      <div class="row m-2">
+        <div class="col-12" style="overflow-x: auto;white-space:auto;">
+          <table id="customers">
+            <thead style="font-size: 14px">
+              <tr class="table100-head">
+                <th>License Key</th>
+                <th>Employee</th>
+                <th>Email</th>
+                <th>Departement</th>
+                <th>Last login time</th>
+                <th>On board Date</th>
+                <th>Monitored</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <div *ngIf="loading">
+              <app-loadingspinner></app-loadingspinner>
+            </div>
+
+            <tbody
+              *ngFor="let item of employeedata | filter: search; let i = index"
+            >
+              <tr>
+                <td class="column1">{{ item["licenseKey"] }}</td>
+                <td class="column2">{{ item["name"] }}</td>
+                <td class="column3">
+                  {{ item["email"] !== undefined ? item["email"] : "N/A" }}
+                </td>
+                <td class="column4">Support</td>
+                <td class="column5">
+                  {{
+                    item["lastLoginDate"] !== null
+                      ? (item["lastLoginDate"] | date: "short")
+                      : "N/A"
+                  }}
+                </td>
+                <td class="column6">
+                  {{
+                    item["employeeonboarddate"] !== null
+                      ? (item["employeeonboarddate"] | date: "short")
+                      : "N/A"
+                  }}
+                </td>
+                <td class="column7">Yes</td>
+                <td
+                  class="column8"
+                  [ngClass]="{
+                    'text-danger': item['activeStatus'] === 'offline',
+                    'text-success': item['activeStatus'] === 'online'
+                  }"
+                >
+                  {{ item["activeStatus"] }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+

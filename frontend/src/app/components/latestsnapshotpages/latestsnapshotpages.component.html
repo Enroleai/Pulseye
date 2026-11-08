@@ -1,0 +1,58 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3 class="dashheadding">Violated Snapshots</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div *ngIf="!loading">
+        <app-loadingspinner></app-loadingspinner>
+      </div>
+      <div class="col-lg-3 col-md-3 col-12" *ngFor="let item of snapshotdata">
+        <div class="card" style="margin-bottom: 30px;box-shadow: 0 7px 20px rgb(0 0 0 / 17%);border-radius: 3px;">
+          <div style="">
+            <img
+              class="card-img-top"
+              src="{{ item['latest'] }}"
+              alt="Card image cap"
+            />
+          </div>
+          <div class="card-body p-2">
+            <h5 class="card-title m-0 text-capitalize snap-title">{{ item["name"] }}</h5>
+            <p class="card-text m-0 mt-1 snap-sub-title">
+              {{ item["date"] !== "" ? (item["date"] | date: "medium") : "" }}
+            </p>
+            <a
+              [routerLink]="['/latestsnap', item['employeeid'], item['name']]"
+              class="btn btn-primary"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-3 col-12" *ngFor="let item of snaphshotlessdata">
+        <div class="card" style="margin-bottom: 30px;box-shadow: 0 7px 20px rgb(0 0 0 / 17%);border-radius: 3px;border: none;">
+          <div style="">
+            <div class="p-2">
+              <p class="h6">NoSnapshot</p>
+            </div>
+          </div>
+          <div class="card-body p-2">
+            <h5 class="card-title m-0 text-capitalize snap-title">{{ item["name"] }}</h5>
+            <p class="card-text m-0 snap-sub-title" [ngClass]="{ 'mt-3': !item['date'] }">
+              {{ item["date"] !== "" ? (item["date"] | date: "medium") : "" }}
+            </p>
+            <a
+              [routerLink]="['/latestsnap', item['employeeid'], item['name']]"
+              class="btn btn-primary"
+              >More</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

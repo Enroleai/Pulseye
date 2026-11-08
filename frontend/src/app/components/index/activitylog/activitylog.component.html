@@ -1,0 +1,27 @@
+<app-card>
+  <h1 class="h5 dashheadding">Activity Log</h1>
+  <div *ngIf="loading">
+    <app-loadingspinner2></app-loadingspinner2>
+  </div>
+  <div class="scroll">
+    <table class="table">
+      <tr *ngFor="let item of activity">
+        <td [ngClass]="{ 'text-danger': !item['activitydate'] }" class="font">
+          {{
+            item["activitydate"]
+              ? (item["activitydate"] | date: "medium")
+              : "Not Active"
+          }}
+        </td>
+        <td style="width: 80%">
+          <div class="text-primary text-capitalize">
+            {{ item["system_name"] }}
+          </div>
+          <div class="activity-name">
+            {{ item["name"] }}
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+</app-card>

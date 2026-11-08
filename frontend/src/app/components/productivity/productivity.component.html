@@ -1,0 +1,42 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3>Productivity</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <div class="custom-datepicker">
+          <div id="reportrange">
+            <span></span
+            ><!-- <b class="caret"></b> -->
+            <app-drpicker></app-drpicker>
+            <!-- <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row"
+      style="
+        margin: 0;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 8px;
+      "
+    >
+      <div class="col-12 mb-2">
+        <div id="productivitychartsection">
+          <app-productivitygraphpage></app-productivitygraphpage>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin: 0;">
+      <div class="col-12 custom-scroll" style="padding:40px 0 0;">
+        <app-tabels></app-tabels>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+.h5 {
+  font-size: 1.3rem;
+}
+.graph {
+  height: 10vh;
+  position: relative;
+  /* top: 20%; */
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 992px) {
+  .graph {
+    height: 40vh;
+  }
+}

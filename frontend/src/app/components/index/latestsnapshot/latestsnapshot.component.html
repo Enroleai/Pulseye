@@ -1,0 +1,37 @@
+<app-card>
+  <div *ngIf="!loading" style="margin-left: 6rem">
+    <app-loadingspinner2></app-loadingspinner2>
+  </div>
+
+  <h5 class="h5 dashheadding">Violated Snapshots</h5>
+  <div class="scroll" *ngIf="loading">
+    <div class="row">
+      <div class="col-md-4 snap-shotimg" *ngFor="let single of snapshotdata">
+        <div class="snap-block">
+         <div style="padding-top: 8px;">
+            <img src="{{ single['latest'] }}" alt="image" *ngIf="single['latest']"/>
+            <div *ngIf="!single['latest']" style="font-size: 8px">
+              No Violations
+            </div>
+          </div>
+          <div style="padding-top: 8px;">
+            <a [routerLink]="['/latestsnap',single['employeeid'], single['name']]" class="text-capitalize snap-title">{{ single["name"] }}</a>
+            <div class="snap-sub-title">
+              {{
+                single["date"] !== ""
+                  ? (single["date"] | date: "medium")
+                  : "invalid"
+              }}
+            </div>
+          </div>
+          <div *ngIf="snapshotdata.length > 7">
+            <div class="card text-center more" routerLink="/latestsnapshots">
+              More
+            </div>
+          </div>
+      </div>
+    </div>
+      <!-- <div class="col-1"></div> -->
+    </div>
+  </div>
+</app-card>

@@ -1,0 +1,38 @@
+<app-card class="card-check">
+  <h1 class="h5 dashheadding">Online Employee</h1>
+  <table id="customers">
+    <thead>
+      <tr>
+        <!-- <th>Latest Activity Date</th> -->
+        <th>Employee name</th>
+        <th>Computer</th>
+        <th>status</th>
+        <th>current Activity</th>
+        <th>Activity Time</th>
+        <th>Ram-Consumption</th>
+        <th>Live</th>
+      </tr>
+    </thead>
+    <div *ngIf="loading">
+      <app-loadingspinner2></app-loadingspinner2>
+    </div>
+    <div *ngIf="lengthi" class="mess-show">No Data Available in Table</div>
+    <tbody *ngFor="let item of arrayonlinemp">
+      <tr>
+        <td>
+          <a>{{ item["empname"] }}</a>
+        </td>
+        <td>{{ item["computer"] }}</td>
+        <td>{{ item["activeStatus"] }}</td>
+        <td>{{ item["app_name"] }}</td>
+        <td>{{ item["timeworked"] | date: "short" }}</td>
+        <td>{{ item["ram"] }}</td>
+        <td>
+          <a (click)="openlivetracking(item['empid'])" style="cursor: pointer"
+            ><i class="fa fa-video-camera" style="color: rgb(91, 235, 91)"></i
+          ></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</app-card>

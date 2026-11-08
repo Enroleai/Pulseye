@@ -1,0 +1,69 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3>Download Agent</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card">
+          <div class="icon">
+            <i class="fa fa-windows"></i>
+          </div>
+          <div class="sysrequirements">
+            <div class="h6 mx-2">System Requirements :</div>
+            <ul>
+              <li class="list-item">Processor : Minimum i3 intel core</li>
+              <li class="list-item">Ram : Minimum 4gb</li>
+              <li class="list-item">HardDisk : Minimum 30gb</li>
+            </ul>
+          </div>
+          <button class="btn" [disabled]="!linkwindows">
+            <a class="text-white" href="{{ linkwindows }}">Download</a>
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card">
+          <div class="icon">
+            <i class="fa fa-linux"></i>
+          </div>
+          <div class="sysrequirements">
+            <div class="h6 mx-2">System Requirements :</div>
+            <ul>
+              <li class="list-item">Processor : Minimum i3 intel core</li>
+              <li class="list-item">Ram : Minimum 4gb</li>
+              <li class="list-item">HardDisk : Minimum 30gb</li>
+            </ul>
+          </div>
+          <button class="btn" [disabled]="!linkwindows">
+            <a class="text-white" href="{{ linklinux }}">Download</a>
+          </button>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12">
+        <div class="card">
+          <div class="icon">
+            <i class="fa fa-apple"></i>
+          </div>
+          <div class="sysrequirements">
+            <div class="h6 mx-2">System Requirements :</div>
+            <ul>
+              <li class="list-item">Processor : Minimum i3 intel core</li>
+              <li class="list-item">Ram : Minimum 4gb</li>
+              <li class="list-item">HardDisk : Minimum 30gb</li>
+            </ul>
+          </div>
+          <button class="btn text-white" [disabled]="true">
+            <a>Download</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

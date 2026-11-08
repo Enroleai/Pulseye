@@ -1,0 +1,160 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+
+<div class="row mob-add" >
+
+<div class="col-md-6 p-0">
+  <div class="banner-add">
+  <ngb-carousel
+  [showNavigationArrows]="true"
+  style="height: 60px;"
+  class="mr-3 ml-5"
+>
+  <!-- <ng-template ngbSlide>
+  <div class="text-center py-3">hello world</div>
+</ng-template> -->
+  <ng-template ngbSlide>
+    <div class="text-center py-3">
+      Pulseye employee monitoring tool
+      <a
+        routerLink="/index"
+        style="
+          background-color: #123998;
+          color: aliceblue;
+          border-radius: 8px;
+        "
+        class="mx-2 px-2 py-1"
+      >
+        Dashboard
+      </a>
+    </div>
+  </ng-template>
+  <ng-template ngbSlide>
+    <div class="text-center py-3">
+      monitors violation data of employees
+      <a
+        routerLink="/latestsnapshots"
+        style="
+          background-color: #123998;
+          color: aliceblue;
+          border-radius: 8px;
+        "
+        class="mx-2 px-2 py-1"
+      >
+        Snapshots
+      </a>
+    </div>
+  </ng-template>
+</ngb-carousel>
+</div>
+</div>
+<div  class="col-md-6 p-0">
+  <div class="banner-add">
+  <ngb-carousel [showNavigationArrows]="true" style="height: 60px;">
+    <!-- <ng-template ngbSlide>
+  <div class="text-center py-3">hello world</div>
+</ng-template> -->
+    <ng-template ngbSlide>
+      <div class="text-center py-3">
+        Pulseye employee monitoring tool
+        <a
+          routerLink="/index"
+          style="
+            background-color: #123998;
+            color: aliceblue;
+            border-radius: 8px;
+          "
+          class="mx-2 px-2 py-1"
+        >
+          Dashboard
+        </a>
+      </div>
+    </ng-template>
+    <ng-template ngbSlide>
+      <div class="text-center py-3">
+        monitors violation data of employees
+        <a
+          routerLink="/latestsnapshots"
+          style="
+            background-color: #123998;
+            color: aliceblue;
+            border-radius: 8px;
+          "
+          class="mx-2 px-2 py-1"
+        >
+          Snapshots
+        </a>
+      </div>
+    </ng-template>
+  </ngb-carousel>
+</div>
+</div>
+
+</div>
+
+
+    <div class="row">
+      <div class="col-lg-6 col-12">
+        <div class="custom-datepicker">
+          <div id="reportrange">
+            <span></span
+            ><!-- <b class="caret"></b> -->
+            <app-drpicker style="cursor: pointer"></app-drpicker>
+            <!-- <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> -->
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-12 d-flex my-2 status-picker">
+        <div class="statuscontainer mx-2 text-success h5 font-weight-normal">
+          <div class="status-online" (click)="scroll()" style="cursor: pointer;color: #109015;">
+            Online<span class="status-online-count">
+              {{ online }}
+            </span>
+          </div>
+        </div>
+        <div class="statuscontainer mx-1 text-dark h5 font-weight-normal">
+          <div class="status-offline">
+            offline<span class="status-online-count">
+              {{ offline }}
+            </span>
+          </div>
+        </div>
+        <div class="statuscontainer mx-1 text-warning h5 font-weight-normal">
+          <div class="status-away">
+            Away<span class="status-online-count"> 0 </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mb-20">
+      <div class="col-lg-6 col-12">
+        <app-productivitygraph></app-productivitygraph>
+      </div>
+      <div class="col-lg-6 col-12">
+        <app-violationgraph></app-violationgraph>
+      </div>
+    </div>
+    <div class="row mb-20">
+      <div class="col-lg-6 col-12">
+        <app-latestsnapshot></app-latestsnapshot>
+      </div>
+      <div class="col-lg-6 col-12">
+        <app-activitylog></app-activitylog>
+      </div>
+    </div>
+    <div class="row mb-20">
+      <div class="col-lg-6 col-12">
+        <app-appusagegraph></app-appusagegraph>
+        <!-- <app-dashinfogrpgh></app-dashinfogrpgh> -->
+      </div>
+      <div class="col-lg-6 col-12">
+        <app-webusagegraph></app-webusagegraph>
+      </div>
+    </div>
+    <div class="col-12 p-0">
+      <app-onlineemp id="last-card"></app-onlineemp>
+    </div>
+  </div>
+</div>

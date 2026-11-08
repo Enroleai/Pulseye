@@ -1,0 +1,389 @@
+<div class="web-nav">
+<div class="wrapper">
+  <ul class="nav-items">
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <span class="menu-title">Time Tracker</span>
+      </a>
+      <div class="submenu-ofsidebar">
+        <div class="dropdown">
+          <a routerLink="/livetracking">Live Tracking</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/monitoring">
+        <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+        <span class="menu-title">Monitoring</span>
+      </a>
+      <div class="submenu-ofsidebar">
+        <a routerLink="/productivity">Productivity</a>
+        <a routerLink="/latestsnapshots">Violated Snapshot</a>
+        <a routerLink="/violation">Violation</a>
+        <a routerLink="/webusage">Web Usage</a>
+        <a routerLink="/appusage">App Usage</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/index">
+        <i class="fa fa-area-chart" aria-hidden="true"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+      <!-- <div class="submenu-ofsidebar">
+                <a href="/tracker">Live Tracking</a>
+              </div> -->
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/employeelist">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="menu-title">Employees</span>
+      </a>
+      <!-- <div class="submenu-ofsidebar">
+                <a href="/tracker">Live Tracking</a>
+              </div> -->
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+        <span class="menu-title">Bi Reports</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span class="menu-title">Configure</span>
+      </a>
+      <div class="submenu-ofsidebar" style="top: 19rem">
+        <a routerLink="/departements">Departements</a>
+        <a routerLink="/teams">Teams</a>
+        <a routerLink="/addviolation">Violations</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/downloadagent']">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <span class="menu-title">Download Agent</span>
+      </a>
+    </li>
+  </ul>
+</div>
+</div>
+
+
+<div class="mobile-nav">
+<div class="wrapper">
+  <!-- <ul class="nav-items">
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <span class="menu-title">Time Tracker</span>
+      </a>
+      <div class="submenu-ofsidebar1">
+        <div class="dropdown">
+          <a routerLink="/livetracking">Live Tracking</a>
+        </div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/monitoring">
+        <i class="fa fa-sticky-note-o" aria-hidden="true"></i>
+        <span class="menu-title">Monitoring</span>
+      </a>
+      <div class="submenu-ofsidebar1">
+        <a routerLink="/productivity">Productivity</a>
+        <a routerLink="/latestsnapshots">Violated Snapshot</a>
+        <a routerLink="/violation">Violation</a>
+        <a routerLink="/webusage">Web Usage</a>
+        <a routerLink="/appusage">App Usage</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/index">
+        <i class="fa fa-area-chart" aria-hidden="true"></i>
+        <span class="menu-title">Dashboard</span>
+      </a>
+       <div class="submenu-ofsidebar">
+                <a href="/tracker">Live Tracking</a>
+              </div> 
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/employeelist">
+        <i class="fa fa-users" aria-hidden="true"></i>
+        <span class="menu-title">Employees</span>
+      </a>
+       <div class="submenu-ofsidebar">
+                <a href="/tracker">Live Tracking</a>
+              </div> 
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-pie-chart" aria-hidden="true"></i>
+        <span class="menu-title">Bi Reports</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link">
+        <i class="fa fa-cog" aria-hidden="true"></i>
+        <span class="menu-title">Configure</span>
+      </a>
+      <div class="submenu-ofsidebar" style="top: 19rem">
+        <a routerLink="/departements">Departements</a>
+        <a routerLink="/teams">Teams</a>
+        <a routerLink="/addviolation">Violations</a>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/downloadagent']">
+        <i class="fa fa-download" aria-hidden="true"></i>
+        <span class="menu-title">Download Agent</span>
+      </a>
+    </li>
+  </ul> -->
+
+ <!-- <div class="panel-group" id="accordionMenu" role="tablist" aria-multiselectable="true">
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingOne">
+        <h4 class="panel-title">
+        <a role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+          Time Tracker
+        </a>
+      </h4>
+      </div>
+      <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+        <div class="panel-body">
+          <ul class="nav">
+            <li><a  routerLink="/livetracking">Live Tracking</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingTwo">
+        <h4 class="panel-title">
+        <a class="collapsed" routerLink="/monitoring" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+          Monitoring
+        </a>
+      </h4>
+      </div>
+      <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+        <div class="panel-body">
+          <ul class="nav">
+            <li><a routerLink="/productivity">Productivity</a></li>
+            <li> <a routerLink="/latestsnapshots">Violated Snapshot</a></li>
+            <li> <a routerLink="/violation">Violation</a></li>
+            <li><a routerLink="/webusage">Web Usage</a></li>
+            <li> <a routerLink="/appusage">App Usage</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+        <a routerLink="/index">Dashboard</a>
+      </h4>
+     </div>
+    
+    
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingFour">
+        <h4 class="panel-title">
+        <a routerLink="/employeelist">
+          Employees
+        </a>
+      </h4>
+      </div>
+   
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+        <a class="collapsed" >
+          Bi Reports
+        </a>
+      </h4>
+      </div>
+
+    </div>
+    
+    <div class="panel panel-default">
+      <div class="panel-heading" role="tab" id="headingSix">
+        <h4 class="panel-title">
+        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordionMenu" href="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+          Configure
+        </a>
+      </h4>
+      </div>
+      <div id="collapseSix" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingSix">
+        <div class="panel-body">
+          <ul class="nav">
+            <li><a routerLink="/departements">Departements</a></li>
+            <li><a  routerLink="/teams">Teams</a></li>
+            <li><a routerLink="/addviolation">Violations</a></li>
+            </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h4 class="panel-title">
+        <a [routerLink]="['/downloadagent']">Download Agent</a>
+      </h4>
+      </div>
+    </div>
+
+  </div>
+</div>  -->
+
+<!-- <div id="accordion" class="panel-group">
+  <div class="panel">
+    <div class="panel-heading">
+    <h4 class="panel-title">
+      <a href="#panelBodyOne" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" aria-expanded="false">Content One</a>
+      </h4>
+    </div>
+    <div id="panelBodyOne" class="panel-collapse collapse in" aria-expanded="true">
+    <div class="panel-body">
+        <p>Energistically drive standardized communities through user friendly results. Phosfluorescently initiate superior technologies vis-a-vis low-risk high-yield solutions. Objectively facilitate clicks-and-mortar partnerships vis-a-vis superior partnerships. Continually generate long-term high-impact methodologies via wireless leadership. Holisticly seize resource maximizing solutions via user friendly outsourcing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+    <h4 class="panel-title">
+      <a href="#panelBodyTwo" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">Content Two</a>
+      </h4>
+    </div>
+    <div id="panelBodyTwo" class="panel-collapse collapse">
+    <div class="panel-body">
+        <p>Energistically drive standardized communities through user friendly results. Phosfluorescently initiate superior technologies vis-a-vis low-risk high-yield solutions. Objectively facilitate clicks-and-mortar partnerships vis-a-vis superior partnerships. Continually generate long-term high-impact methodologies via wireless leadership. Holisticly seize resource maximizing solutions via user friendly outsourcing.</p>
+      </div>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-heading">
+    <h4 class="panel-title">
+      <a href="#panelBodyThree" class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion">Content Three</a>
+      </h4>
+    </div>
+    <div id="panelBodyThree" class="panel-collapse collapse">
+    <div class="panel-body">
+        <p>Energistically drive standardized communities through user friendly results. Phosfluorescently initiate superior technologies vis-a-vis low-risk high-yield solutions. Objectively facilitate clicks-and-mortar partnerships vis-a-vis superior partnerships. Continually generate long-term high-impact methodologies via wireless leadership. Holisticly seize resource maximizing solutions via user friendly outsourcing.</p>
+      </div>
+    </div>
+  </div>
+</div>  -->
+<div class="accordion" id="accordionExample">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingOne">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+        <i _ngcontent-mti-c101="" aria-hidden="true" class="fa fa-clock-o mr20"></i>
+        Time Tracker
+      </button>
+    </h2>
+    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="nav">
+          <li><a  routerLink="/livetracking">Live Tracking</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-sticky-note-o mr20"></i>
+        Monitoring
+      </button>
+    </h2>
+    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="nav">
+          <li><a routerLink="/productivity">Productivity</a></li>
+          <li> <a routerLink="/latestsnapshots">Violated Snapshot</a></li>
+          <li> <a routerLink="/violation">Violation</a></li>
+          <li><a routerLink="/webusage">Web Usage</a></li>
+          <li> <a routerLink="/appusage">App Usage</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFive">
+      <button class="accordion-button collapsed btn-arrow" type="button" routerLink="/index" data-bs-toggle="collapse" data-bs-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-area-chart mr20"></i>
+        Dashboard
+      </button>
+    </h2>
+    <div id="collapseFive" class="accordion-collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+     
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSix">
+      <button class="accordion-button collapsed btn-arrow" routerLink="/employeelist" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix" aria-expanded="false" aria-controls="collapseSix">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-users mr20"></i>
+        Employees
+      </button>
+    </h2>
+    <div id="collapseSix" class="accordion-collapse collapse" aria-labelledby="headingSix" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      
+      </div>
+    </div>
+  </div>
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingSeven">
+      <button class="accordion-button collapsed btn-arrow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven" aria-expanded="false" aria-controls="collapseSeven">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-pie-chart mr20"></i>
+        Bi Reports
+      </button>
+    </h2>
+    <div id="collapseSeven" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+    
+    </div>
+  </div>
+
+
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingThree">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-cog mr20"></i>
+        Configure
+      </button>
+    </h2>
+    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+        <ul class="nav">
+          <li><a routerLink="/departements">Departements</a></li>
+          <li><a  routerLink="/teams">Teams</a></li>
+          <li><a routerLink="/addviolation">Violations</a></li>
+          </ul>
+      </div>
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingFour">
+      <button class="accordion-button collapsed btn-arrow" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+        <i _ngcontent-fxr-c101="" aria-hidden="true" class="fa fa-download mr20"></i>
+        Download Agent
+      </button>
+    </h2>
+    <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordionExample">
+      <div class="accordion-body">
+      
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</div>

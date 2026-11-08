@@ -1,0 +1,14 @@
+<app-card>
+  <div *ngIf="loading">
+    <app-loadingspinner2></app-loadingspinner2>
+  </div>
+  <h1 class="h5 dashheadding">Violation</h1>
+  <div *ngIf="!loading">
+      <div *ngIf="violationamountarr.length===0" class="mt-2 mess-show">No Data is available!</div>
+    </div>
+  <div class="graph" >
+    <canvas id="bar-chart-horizontal"></canvas>
+  </div>
+
+  <!-- </div> -->
+</app-card>

@@ -1,0 +1,46 @@
+<div *ngIf="!loading">
+  <app-loadingspinner></app-loadingspinner>
+</div>
+<table id="customers">
+  <thead>
+    <tr>
+      <th>Latest Activity Date</th>
+      <th>Employee name</th>
+      <th>Computer</th>
+      <th>Productivity Duration</th>
+      <th>Productivity Percentage</th>
+      <th>Download</th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let product of paginatedata; let i = index">
+    <tr>
+      <td>{{ product["activitydate"] }}</td>
+      <td>{{ product["empname"] }}</td>
+      <td>{{ product["system_name"] }}</td>
+      <td>{{ product["totalDuration"] }}</td>
+      <td>
+        {{
+          !product["productivityPercentage"]
+            ? "0"
+            : product["productivityPercentage"]
+        }}
+        %
+      </td>
+      <td>
+        <button type="button" class="btn btn-info table-btn" (click)="download(i)">
+          <i class="fa fa-download" style="color: white"></i> Download
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<div class="mt-2"></div>
+<div class="m-auto d-flex justify-content-center" *ngIf="loading">
+  <ngb-pagination
+    [collectionSize]="collectionSize"
+    [(page)]="page"
+    [pageSize]="pageSize"
+    (pageChange)="refreshCountries()"
+  >
+  </ngb-pagination>
+</div>

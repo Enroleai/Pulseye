@@ -1,0 +1,26 @@
+<div style="background-color: black; width: 100vw; height: 100vh">
+  <header
+    class="d-flex justify-content-spacebetween"
+    style="width: 100%; height: 10vh"
+  >
+    <div class="empname mx-4 mt-4 text-success">
+      Name: <span class="text-white">{{ name }}</span>
+    </div>
+    <div class="empdesktop mx-4 mt-4 text-success">
+      SystemName: <span class="text-white">{{ systemid }}</span>
+    </div>
+    <div class="empdesktop mx-4 mt-4 text-success">
+      Activity Date: <span class="text-white">{{ date }}</span>
+    </div>
+    <div class="blink">
+      <span>live</span>
+    </div>
+  </header>
+  <main class="p-4">
+    <img
+      src="{{ image }}"
+      alt="empactivity"
+      style="width: 100%; height: 80vh"
+    />
+  </main>
+</div>

@@ -1,0 +1,76 @@
+<!-- <h1>Angular 8 Bootstrap Modal Popup Example</h1> -->
+
+<button class="btn btn-outline-primary add-btn" (click)="open(mymodal)">
+  <i _ngcontent-ibl-c106="" aria-hidden="true" class="fa fa-plus-circle" style="font-size: 18px;"></i> ADD EMPLOYEE
+</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Employee</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submitted(form.value)" #form="ngForm">
+      <div class="mb-3">
+        <label for="License Key" class="form-label">License Key</label>
+        <select
+          class="form-control form-control-sm"
+          ngModel
+          name="emplicense"
+          required
+        >
+          <option *ngIf="totallicenses.length === 0">No licences found</option>
+          <option *ngFor="let op of totallicenses" [value]="op">
+            {{ op }}
+          </option>
+        </select>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label"
+          >Employee Name :</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="exampleInputEmail1"
+          name="empname"
+          ngModel
+          required
+        />
+        <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label"
+          >Employee Email :</label
+        >
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputPassword1"
+          name="email"
+          email
+          ngModel
+          required
+        />
+      </div>
+      <button
+      class="btn"
+        (click)="modal.close('Save click')"
+        [disabled]="!form.valid"
+      >
+        Submit
+      </button>
+    </form>
+    <!-- This is example from ItSolutionStuff.com -->
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div> -->
+</ng-template>

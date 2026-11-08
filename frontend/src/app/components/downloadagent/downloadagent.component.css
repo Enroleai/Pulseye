@@ -1,0 +1,96 @@
+.main-container {
+  /* padding: 25px; */
+  margin-top: 5rem;
+  margin-left: 17%;
+}
+.container {
+  padding: 3rem;
+  padding-left: 2.5rem;
+}
+
+.title-section {
+  /* background-image: url("../../../assets/topbar-background-sky-blue.jpg"); */
+  width: 100vw;
+  height: 11vh;
+  padding: 40px 20px; 
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-section h3 {
+  color: #123998;
+}
+.list-item {
+  font-size: 12px;
+}
+.card {
+  width: 90%;
+  height: 20rem;
+  font-size: 12px;
+  /* margin-left: 3rem; */
+}
+.btn {
+  width: 50%;
+  margin-left: 4rem;
+  margin-top: 1rem;
+  color: white;
+}
+.sysrequirements {
+  width: 100%;
+  margin-top: 1rem;
+  margin-left: 1.5rem;
+}
+.icon {
+  width: 100%;
+  height: 40%;
+  padding-left: 6rem;
+  padding-top: 0.5rem;
+}
+.fa {
+  font-size: 6rem;
+  color: blue;
+  margin: auto;
+}
+/* @media (max-width: 1299px) {
+  .main-container {
+    margin-top: 5rem;
+    margin-left: 13rem;
+  }
+  .container {
+    padding: 2rem;
+    margin: 0;
+  }
+  .card {
+    width: 100%;
+  }
+} */
+
+@media (max-width: 1700px) {
+.main-container{ margin-left: 21%;}
+}
+@media (max-width: 1024px) {
+.card {width: 100%;}
+.icon{padding-left: 4rem;}
+.sysrequirements{margin-left: 0.5rem;}
+}
+@media (max-width: 992px) {
+  .main-container {
+    margin-top: 5rem;
+    margin-left: 0;
+  }
+  .container {
+    padding: 0rem;
+  }
+  .card {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+}
+@media (max-width: 480px) {
+.container {padding: 20px 20px;}
+.title-section h3 {text-align: center;font-size: 25px;}
+.card {margin-bottom: 30px;}
+}
+.h6 {
+  font-size: 14px;
+}

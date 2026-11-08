@@ -1,0 +1,112 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3>Add Violation</h3>
+      </div>
+    </div>
+    <div class="row mx-5 my-2">
+      <ngb-alert #selfClosingAlert [type]="alerttype" *ngIf="isalert">{{
+        message
+      }}</ngb-alert>
+    </div>
+    <div class="row m-5">
+      <form (ngSubmit)="submitted(form.value)" #form="ngForm">
+        <div class="mb-3">
+          <label for="exampleInputEmail1" class="form-label"
+            >Select Employee:</label
+          >
+          <ng-multiselect-dropdown
+            name="name"
+            [data]="empnames"
+            [(ngModel)]="selectedemp"
+            [settings]="dropdownSettings"
+            (onSelect)="onItemSelect($event)"
+            required
+          ></ng-multiselect-dropdown>
+        </div>
+        <div class="mb-3">
+          <label for="violationweb" class="form-label">violation website</label>
+          <ng-select
+            [items]="webNames"
+            [addTag]="addTagFn"
+            [hideSelected]="true"
+            [multiple]="true"
+            bindLabel="name"
+            [(ngModel)]="selectedWebsite"
+            name="webname"
+          >
+          </ng-select>
+        </div>
+        <div class="mb-3">
+          <label for="violationapp" class="form-label">violation app</label>
+          <ng-select
+            [items]="appNames"
+            [addTag]="addTagFn"
+            [hideSelected]="true"
+            [multiple]="true"
+            bindLabel="name"
+            name="appname"
+            [(ngModel)]="selectedApp"
+          >
+          </ng-select>
+        </div>
+        <button class="btn add-btn" [disabled]="!form.valid">Submit</button>
+      </form>
+    </div>
+    <div class="row">
+      
+      <div class="departmentauto">
+        <table id="customers" class="styled-table">
+          <thead>
+            <tr>
+              <th>Violation Website & apps</th>
+              <th>Active Status</th>
+              <th>Update Active Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of violationsites">
+              <td>{{ "www." + item["name"] + ".com" }}</td>
+              <td
+                [ngStyle]="{
+                  color: item['status'] ? 'green' : 'red'
+                }"
+              >
+                {{ item["status"] ? "unproductive" : "productive" }}
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary btn-productive"
+                  (click)="updatesite(item['_id'], !item['status'])"
+                >
+                  {{ item["status"] ? "productive" : "unproductive" }}
+                </button>
+              </td>
+            </tr>
+            <tr *ngFor="let item of violationapps">
+              <td>{{ item["name"] + ".exe" }}</td>
+              <td
+                [ngStyle]="{
+                  color: item['status'] ? 'green' : 'red'
+                }"
+              >
+                {{ item["status"] ? "unproductive" : "productive" }}
+              </td>
+              <td>
+                <button
+                  class="btn btn-primary btn-productive"
+                  (click)="updateapp(item['_id'], !item['status'])"
+                >
+                  {{ item["status"] ? "productive" : "unproductive" }}
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

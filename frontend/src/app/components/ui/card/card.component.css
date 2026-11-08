@@ -1,0 +1,26 @@
+.card {
+  padding: 15px 5px 15px 16px;
+  margin: 10px 6px;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  max-width: 100%;
+  height: 270px;
+  position: relative;
+  /* z-index: -1;    */
+}
+
+.card-title {
+  font-size: large;
+}
+@media (max-width: 1024px) {
+  .totalcard .card {overflow-x: auto;white-space: nowrap;}
+
+}
+@media (max-width: 480px) {
+  .card {padding: 15px 5px 15px 15px; margin: 10px 6px;}
+  .totalcard .card:nth-of-type(7){overflow-x: scroll;white-space: nowrap;}
+  #last-card{margin: 0;}
+  #last-card .card-check {overflow-x: auto;white-space: nowrap;}
+  .totalcard .card {overflow-x: auto;white-space: nowrap;}
+      
+}

@@ -1,0 +1,96 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3>App Usage</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-sm-12 mob-txt-center">
+        <div class="custom-datepicker">
+          <div id="reportrange">
+            <span></span>
+            <app-drpicker></app-drpicker>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row"
+      style="
+        margin: 0;
+        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+        border-radius: 8px;
+      "
+    >
+      <div class="col-12">
+        <div id="productivitychartsection p-2">
+          <app-appusesgraphpage></app-appusesgraphpage>
+        </div>
+      </div>
+    </div>
+    <div class="row" style="margin:40px 0 0 0">
+      <div class="col-12 custom-scroll" style="padding: 0;">
+        <table id="customers">
+          <thead>
+            <tr>
+              <th>Latest Activity Date</th>
+              <th>Employee name</th>
+              <th>Computer</th>
+              <th>Latest app Accessed</th>
+              <th>Total app Duration</th>
+              <th>App Usage Percentage</th>
+              <th>Download</th>
+            </tr>
+          </thead>
+          <div *ngIf="loading">
+            <app-loadingspinner></app-loadingspinner>
+          </div>
+
+          <tbody *ngFor="let item of paginatedata; let i = index">
+            <tr>
+              <td>{{ item["activitydate"] }}</td>
+              <td>{{ item["empname"] }}</td>
+              <td>{{ item["system_name"] }}</td>
+              <td>
+                {{
+                  item["latestAppUsed"].length >= 50
+                    ? item["latestAppUsed"].slice(0, 50) + "..."
+                    : item["latestAppUsed"]
+                }}
+              </td>
+              <td>{{ item["totalDuration"] }}</td>
+              <td>
+                {{
+                  item["usesPercentage"] !== null
+                    ? item["usesPercentage"] + "%"
+                    : "0%"
+                }}
+              </td>
+              <td>
+                <button
+                  type="button"
+                  class="btn btn-info table-btn"
+                  (click)="download(i)"
+                >
+                  <i class="fa fa-download" style="color: white"></i> Download
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="m-auto d-flex justify-content-center" *ngIf="!loading">
+      <ngb-pagination
+        [collectionSize]="collectionSize"
+        [(page)]="page"
+        [pageSize]="pageSize"
+        (pageChange)="refreshCountries()"
+      >
+      </ngb-pagination>
+    </div>
+  </div>
+</div>

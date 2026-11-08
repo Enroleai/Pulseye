@@ -1,0 +1,71 @@
+.main-container {
+  /* padding: 25px; */
+  margin-top: 5rem;
+  margin-left: 17%;
+}
+.title-section {
+  /* background-image: url("../../../assets/topbar-background-sky-blue.jpg"); */
+  width: 100%;
+  padding: 40px 20px 0px 20px;
+   background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 15px;
+}
+.title-section h3 {
+  color: #123998;
+}
+.title-section h3 {
+  color: #123998;
+}
+
+.card-text {
+  font-size: 14px;
+}
+.btn-primary {
+  padding: 4px 10px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.h6 {
+  height: 3.6rem;
+  font-size: larger;
+  /* margin: 1.3rem; */
+}
+.card-title{font-size:16px}
+.snap-title{font-size: 16px;}
+.snap-sub-title{font-size: 14px;}
+
+@media (max-width: 1600px){
+.main-container{margin-left: 21%;}
+}
+@media (max-width: 1440px) {
+.main-container{margin-left: 21%;}
+}
+@media (max-width: 1299px) {
+  .main-container {
+    margin-top: 5rem;
+    margin-left: 19%;
+  }
+  .m-3 {
+    padding-left: 3rem;
+  }
+}
+@media (max-width: 1024px) {
+  .main-container {margin-left: 21%}
+  .card-text{font-size: 13px;}
+}
+@media (max-width: 992px) {
+  .main-container {
+    margin-top: 5rem;
+    margin-left: 0;
+  }
+  .card-title{ font-size: 14px;}
+  .card-text{font-size: 12px;}
+}
+@media (max-width: 480px) {
+.title-section h3{font-size: 1.5rem;text-align: center;}
+.card-text {font-size: 11px;}
+.btn-primary{padding: 1px 6px;font-size: 12px;}
+}
+

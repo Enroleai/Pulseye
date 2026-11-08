@@ -1,0 +1,80 @@
+.main-container {
+  /* padding: 25px; */
+  margin-top: 5rem;
+  margin-left: 17%;
+}
+
+.title-section {
+  /* background-image: url("../../../assets/topbar-background-sky-blue.jpg"); */
+  width: 100vw;
+  height: 11vh;
+  padding: 40px 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.title-section h3 {
+  color: #123998;
+}
+.blink {
+  position: absolute;
+  right: 0;
+  background-color: rgb(117, 223, 117);
+  text-align: center;
+  width: 30px;
+  border-radius: 3px;
+  padding: 0px 3px;
+  top: 0;
+}
+span {
+  font-size: 12px;
+  /* font-family: cursive; */
+  color: white;
+  animation: blink 1s linear infinite;
+}
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+  /* 50%{opacity: .5;} */
+  100% {
+    opacity: 1;
+  }
+}
+
+img {
+  height: 30vh;
+  width: 30vw;
+  /* margin-bottom: 1rem; */
+}
+.empdetails {
+  margin-left: 6px;
+  color: black;
+}
+.sysname {
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 1rem;
+}
+.username {
+  font-size: 14px;
+  margin-left: 8px;
+}
+.fa {
+  color: blue;
+  font-size: 14px;
+  width: 14px;
+}
+.live {
+  position: relative;
+}
+
+@media (max-width: 1700px) {
+.main-container {margin-left: 21%;}
+
+}
+
+@media (max-width: 992px) {
+  .main-container {margin-left: 0;}
+  
+  }

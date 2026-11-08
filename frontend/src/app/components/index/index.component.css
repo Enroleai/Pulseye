@@ -1,0 +1,58 @@
+.main-container {
+  padding: 25px;
+  margin-top: 5.3rem;
+  margin-left: 16.3rem;
+  font-size: 12px;
+  /* z-index: -1000;  */
+}
+.h5 {
+  font-size: 1.5rem;
+}
+.status-picker{justify-content: center;}
+.p0{padding: 0;}
+.banner-add{background: #f07b30;color: #fff;margin-left: 20px;margin-bottom: 20px;border-radius: 6px;}
+.mb-20{margin-bottom: 25px;}
+#customers tbody tr:odd{background: #f5f5f5;}
+
+#table tbody:nth-child(even){background: #f5f5f5;}
+table td{border: 1px solid #cdcdcd;padding: 10px;}
+.status-away{color: #f07b30;}
+
+.custom-datepicker{width: 40%;margin: 0 auto;}
+
+@media (max-width: 1700px) {
+.custom-datepicker{width: 50%;margin: 0 auto;}
+.datepickcontainer {width: 100%;}
+}
+@media (max-width: 1295px) {
+  .main-container {
+    margin-top: 5.3rem;
+    margin-left: 12rem;
+    padding: 20px;
+  }
+}
+@media (max-width: 1024px) {
+  .custom-datepicker {width: 65%;}
+  .datepickcontainer{width: 100%;}
+}
+@media (max-width: 992px) {
+  .main-container {
+    margin-top: 5.3rem;
+    margin-left: 0;
+    padding: 0px;
+  }
+  .h1 {
+    font-size: 12px;
+  }
+  .mob-add{display: none;}
+  .custom-datepicker{text-align: center;margin-top: 20px}
+  .status-picker{justify-content: center;}
+}
+.statuscontainer {
+  font-size: 16px;
+}
+@media (max-width: 480px) {
+  #last-card{margin: 0;}
+  .totalcard .card {overflow-x: auto;white-space: nowrap;}
+  .custom-datepicker {width: 100%;}
+}

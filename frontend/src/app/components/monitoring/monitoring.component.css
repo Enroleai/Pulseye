@@ -1,0 +1,101 @@
+.main-container {
+  /* padding: 25px; */
+  margin-top: 5rem;
+  margin-left: 20%;
+}
+
+.logo,
+.logo1 {
+  background-image: url("./../../../assets/undraw_Data_re_80ws.svg");
+  width: 80%;
+  height: 12rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+}
+
+.logo2 {
+  background-image: url("./../../../assets/undraw_App_wireframe_re_d467.svg");
+  width: 80%;
+  height: 12rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin: auto;
+}
+
+.logo3 {
+  background-image: url("./../../../assets/undraw_Browser_stats_re_j7wy.svg");
+  width: 80%;
+  height: 12rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+}
+
+.logo4 {
+  background-image: url("./../../../assets/undraw_Cloud_docs_re_xjht.svg");
+  width: 80%;
+  height: 12rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+}
+
+.logo5 {
+  background-image: url("./../../../assets/undraw_opened_tabs_re_s5ur.svg");
+  width: 80%;
+  height: 12rem;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: auto;
+}
+
+.monitor-sub-title{color: #f07b30;}
+.title-section {
+  /* background-image: url("../../../assets/topbar-background-sky-blue.jpg"); */
+  width: 100vw;
+  height: 11vh;
+  padding: 40px 20px 40px 0;
+   background-repeat: no-repeat;
+  background-size: cover;
+}
+.title-section h3 {
+  color: #123998;
+}
+.total-monotoring-card{width: 100%;display: block;padding-top: 20px;}
+.monotoring-card{width: 20%;float: left;margin: 0 20px 20px 0;}
+
+@media (max-width: 1600px) {
+  .main-container {margin-left: 21%;}
+}
+@media (max-width: 1440px) {
+.main-container {margin-left: 21%;}
+.monotoring-card {width: 22%;}
+}
+
+@media (max-width: 1366px) {
+  .main-container {margin-left: 22%;}
+  .monotoring-card {width: 22%;}
+  }
+
+  @media (max-width: 1280px){
+.main-container{margin-left: 19%;}
+}
+
+@media (max-width: 1024px){
+  .main-container{margin-left: 22%;}
+  .monotoring-card{width: 30%;}
+  }
+  @media (max-width: 992px){
+    .main-container{margin-left: 20px;}
+    .monotoring-card{width: 30%;}
+    }
+    @media (max-width: 480px){
+      .main-container{margin: 40px 20px;}
+      .monotoring-card{width: 100%;}
+      .title-section h3 {text-align: center; }
+      }

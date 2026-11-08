@@ -1,0 +1,72 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3 class="text-capitalize">{{ empname }}</h3>
+      </div>
+    </div>
+    <!-- <div *ngIf="loading">
+      <app-loadingspinner></app-loadingspinner>
+    </div> -->
+    <div class="row m-2 ml-5">
+      <div class="col-3" (click)="today(true)">
+        <i
+          class="fa"
+          [ngClass]="{
+            'fa-folder-open': openfoldertoday,
+            'fa-folder': !openfoldertoday
+          }"
+          style="font-size: 5rem; color: blue"
+        ></i>
+        <div style="font-size: small" class="ml-2 mt-o">Today</div>
+      </div>
+      <div class="col-3" (click)="yesterday(true)">
+        <i
+          class="fa"
+          style="font-size: 5rem; color: blue"
+          [ngClass]="{
+            'fa-folder': !openfolderyesterday,
+            'fa-folder-open': openfolderyesterday
+          }"
+        ></i>
+        <div style="font-size: small" class="ml-2 mt-o">Yesterday</div>
+      </div>
+      <div class="col-3" (click)="lastweek(true)">
+        <i
+          class="fa"
+          style="font-size: 5rem; color: blue"
+          [ngClass]="{
+            'fa-folder': !openfolderlastweek,
+            'fa-folder-open': openfolderlastweek
+          }"
+        ></i>
+        <div style="font-size: small" class="ml-2 mt-o">Last Week</div>
+      </div>
+    </div>
+    <div *ngIf="loading">
+      <app-loadingspinner></app-loadingspinner>
+    </div>
+    <div class="row m-2 mt-5" *ngIf="!loading">
+      <div
+        class="col-3 mb-3 rounded"
+        *ngIf="images.length === 0"
+        style="height: 10rem; background-color: #dcdcdc"
+      >
+        <div class="p-3">No Snapshots</div>
+      </div>
+      <div class="col-3 mb-3" *ngFor="let image of images">
+        <img
+          src="{{ image['url'] }}"
+          class="img-thumbnail"
+          alt=""
+          (click)="download(image['url'], empname)"
+        />
+        <div style="font-size: 12px; text-align: center">
+          {{ image["date"] | date: "medium" }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

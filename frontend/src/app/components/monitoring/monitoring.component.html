@@ -1,0 +1,53 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="col-12 title-section">
+    <h3 class="dashheadding">Monitoring</h3>
+  </div>
+  
+    <div class="total-monotoring-card">
+      <div class="monotoring-card">
+        <div class="card" [routerLink]="['/productivity']">
+          <div class="logo1 card-img-top"></div>
+          <div class="card-body">
+            <h5 class="card-title text-center monitor-sub-title">Productivity</h5>
+          </div>
+        </div>
+      </div>
+      <div class="monotoring-card">
+        <div class="card" [routerLink]="['/appusage']">
+          <div class="logo2 card-img-top"></div>
+          <div class="card-body">
+            <h5 class="card-title text-center monitor-sub-title">App Usage</h5>
+          </div>
+        </div>
+      </div>
+      <div class="monotoring-card">
+        <div class="card" [routerLink]="['/webusage']">
+          <div class="logo3 card-img-top"></div>
+          <div class="card-body">
+            <h5 class="card-title text-center monitor-sub-title">Web Usage</h5>
+          </div>
+        </div>
+      </div>
+      <div class="monotoring-card">
+        <div class="card" [routerLink]="['/latestsnapshots']">
+          <div class="logo4 card-img-top"></div>
+          <div class="card-body">
+            <h5 class="card-title text-center monitor-sub-title">
+              Violated Snapshots
+            </h5>
+          </div>
+        </div>
+      </div>
+      <div class="monotoring-card">
+        <div class="card" [routerLink]="['/violation']">
+          <div class="logo5 card-img-top"></div>
+          <div class="card-body">
+            <h5 class="card-title text-center monitor-sub-title">Violation</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

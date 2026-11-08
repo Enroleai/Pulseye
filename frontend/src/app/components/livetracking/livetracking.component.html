@@ -1,0 +1,41 @@
+<app-topnav></app-topnav>
+<app-sidenavbar></app-sidenavbar>
+<div class="main-container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12 title-section">
+        <h3>Live Tracking</h3>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5">
+    <video
+      src="{{ data }}"
+      style="width: 20rem; height: 20rem"
+      id="video"
+    ></video>
+    <div class="row">
+      <div class="col-4 p-1" *ngFor="let employee of onlineemps">
+        <div class="username text-capitalize">
+          <i class="fa fa-user"></i>
+          {{ employee.workername }}
+        </div>
+        <div class="live">
+          <div class="blink"><span>Live</span></div>
+          <img
+            src="{{ employee.imageurl }}"
+            class="img-thumbnail"
+            (click)="openlivetracking(employee.workerid)"
+          />
+        </div>
+
+        <div class="empdetails text-capitalize">
+          <div class="sysname">
+            <i class="fa fa-desktop"></i>
+            {{ employee.systemname }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

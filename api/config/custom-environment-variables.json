@@ -1,0 +1,12 @@
+{
+  "jwtPrivateKey": "JWT_PRIVATE_KEY",
+  "mongodbUri": "MONGODB_URI",
+  "corsOrigin": "CORS_ORIGIN",
+  "aws": {
+    "accessKeyId": "SPACES_ACCESS_KEY_ID",
+    "secretAccessKey": "SPACES_SECRET_ACCESS_KEY",
+    "endpoint": "SPACES_ENDPOINT",
+    "region": "SPACES_REGION",
+    "bucket": "SPACES_BUCKET"
+  }
+}

@@ -1,0 +1,72 @@
+<button class="btn btn-outline-primary mx-4" (click)="open(mymodal)">
+  Add Violation
+</button>
+
+<ng-template #mymodal let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Add Violation</h4>
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    >
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="submitted(form.value)" #form="ngForm">
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label"
+          >Select Employee:</label
+        >
+        <ng-multiselect-dropdown
+          name="name"
+          [data]="empnames"
+          [(ngModel)]="selectedemp"
+          [settings]="dropdownSettings"
+          required
+        ></ng-multiselect-dropdown>
+      </div>
+      <div class="mb-3">
+        <label for="violationweb" class="form-label">violation website</label>
+        <ng-select
+          [items]="webNames"
+          [addTag]="addTagFn"
+          [hideSelected]="true"
+          [multiple]="true"
+          bindLabel="name"
+          [(ngModel)]="selectedWebsite"
+          name="webname"
+          required
+        >
+        </ng-select>
+      </div>
+      <div class="mb-3">
+        <label for="violationapp" class="form-label">violation app</label>
+        <ng-select
+          [items]="appNames"
+          [addTag]="addTagFn"
+          [hideSelected]="true"
+          [multiple]="true"
+          bindLabel="name"
+          name="appname"
+          [(ngModel)]="selectedApp"
+          required
+        >
+        </ng-select>
+      </div>
+      <button
+        class="btn btn-primary"
+        (click)="modal.close('Save click')"
+        [disabled]="!form.valid"
+      >
+        Submit
+      </button>
+    </form>
+    <!-- This is example from ItSolutionStuff.com -->
+  </div>
+  <!-- <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Ok</button>
+  </div> -->
+</ng-template>

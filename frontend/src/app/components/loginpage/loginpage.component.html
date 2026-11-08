@@ -1,0 +1,63 @@
+<!-- <div *ngIf="is_showchat">
+  <ChatviewComponent (showchat)="chatPopHandler($event)"></ChatviewComponent>
+</div> -->
+<div class="main-page">
+  <img src="../../../assets/loginbg.jpg" class="loginbg">
+  <div class="logincenter">
+    <div class="login-section" [class.logheight]="check">
+      <div class="login-block1">
+        <div class="image"><img src="../../../assets/LoginPafe_Logo.svg"></div>
+      </div>
+      <div class="login-page">
+        <h4 *ngIf="resetpage == false">LOGIN</h4>
+        <form (ngSubmit)="loginpage()" #login="ngForm" *ngIf="resetpage == false">
+          <div class="input-group">
+            <i class="fa fa-user-circle-o input-group-text" aria-hidden="true"></i>
+            <input type="email" name="email" placeholder="Email" class="form-control" ngModel required />
+          </div>
+          <div class="input-group">
+            <i class="fa fa-key input-group-text" aria-hidden="true"></i>
+            <input type="password" name="password" placeholder="Password" class="form-control" ngModel required />
+          </div>
+          <div style="font-size: 12px; color: red" *ngIf="error">
+            {{ message }}
+          </div>
+          <div class="clearfix">
+            <a class="float-right mb-1" (click)="changingpages()">Reset Password</a>
+          </div>
+          <button class="btn btn-primary btn-block" [disabled]="!login.valid" style="background-color: #123998">
+            Submit
+          </button>
+        </form>
+        <h5 class="text-center" *ngIf="resetpage == true">RESET PASSWORD</h5>
+        <form *ngIf="resetpage == true" (ngSubmit)="resetform()" #resetpage="ngForm">
+          <div class="form-group">
+            <input type="email" name="email" required placeholder="email" class="form-control" ngModel />
+          </div>
+          <div class="form-group">
+            <input type="password" name="oldpassword" required placeholder="old password" class="form-control"
+              ngModel />
+          </div>
+          <div class="form-group">
+            <input type="password" name="newpassword" class="form-control" placeholder="new password" required
+              ngModel />
+          </div>
+          <div class="form-group">
+            <input type="password" name="confirmpassword" class="form-control" placeholder="confirm password" required
+              ngModel />
+          </div>
+          <div class="form-group">
+            <button class="btn btn-outline-primary float-left mb-2 button">
+              Save
+            </button>
+            <button class="btn btn-outline-primary float-right mb-2 button" (click)="cancel()">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+
+    </div>
+   
+  </div>
+</div>

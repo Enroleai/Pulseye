@@ -1,0 +1,109 @@
+/*.main-page {
+  width: 100vw;
+  
+  background-image: url("../../../assets/loginbg.jpg");
+  background-size: cover;
+  position: fixed;
+  font-size: 12px;
+   z-index: -4;    
+}*/
+.main-bg{overflow: hidden;}
+
+.logincenter{position: absolute;top:0;top: 50%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);}
+.main-page {
+  font-size: 12px;
+  height: 100%;
+  
+}
+.loginbg{width: 100%;height: 969px;}
+.login-section {
+  width: 480px;
+  height: 440px;
+  border-radius: 12px;
+  background-color: #fff;
+  margin: 0 auto;
+}
+.logheight{height:520px;}
+.login-block1 {
+  width: 100%;
+  height: 18rem;
+  background-color: #123998;
+  border-radius: 12px;
+  }
+.image {
+ 
+ text-align: center;
+ padding-top: 20px;
+  
+}
+.image > img{width: 175px;}
+.login-page {
+  position: absolute;
+  width: 400px;
+  border-radius: 12px;
+  background-color: white;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+    rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+  padding: 15px;
+  top: 65%;left: 50%;-ms-transform: translate(-50%, -50%);transform: translate(-50%, -50%);
+}
+.login-page h4 {
+  font-size: 16px;
+}
+.login-page form .input-group {
+  /* display: block; */
+  /* width: 100%; */
+  margin-bottom: 12px;
+}
+h4 {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+form {
+  padding: 8px;
+}
+.button {
+  padding: 4px 40px;
+}
+.form-control:focus {
+  /* outline: none; */
+  box-shadow: inset 0 -1px 0 #ddd;
+}
+@media (max-width: 1366px) {
+
+.loginbg{width: 100%;height: 657px;}
+}
+@media (max-width: 768px) {
+
+  .loginbg{height: 900px;}
+  }
+
+@media (max-width: 1295px) {
+}
+
+@media (max-width: 480px) {
+  .logincenter{top: 20%;transform:translate(-50%, -20%);width: 100%;}
+  .login-section{width: 100%;}
+  .image > img{width: 150px;}
+  .login-page{width: 95%;}
+  .loginbg{width: 100%;height: 900px;}
+}
+/* 
+.chat{
+  width: 50px;
+  margin: 35% 0 0 160%;
+  cursor: pointer;
+} */
+.chat {
+  position: fixed;
+  margin: 35% 0 0 160%;
+
+  /* right: 10px;
+  bottom: 10px; */
+  background: #34475d;
+  width: 60px;
+  height: 60px;
+  border-radius: 100px;
+  padding: 15px;
+}

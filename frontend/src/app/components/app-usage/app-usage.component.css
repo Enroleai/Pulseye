@@ -1,0 +1,98 @@
+.main-container {
+  /* padding: 25px; */
+  margin-top: 5rem;
+  margin-left: 17%;
+}
+.title-section {
+  /* background-image: url("../../../assets/topbar-background-sky-blue.jpg"); */
+  width: 100vw;
+  height: 11vh;
+  padding: 40px 20px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.title-section h3 {
+  color: #123998;
+}
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td,
+#customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+#customers th {
+  border: 0px solid;
+}
+#customers td {
+  font-size: 15px;
+}
+
+#customers tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #123998;
+  color: white;
+  font-size: 15px;
+  font-weight: normal;
+}
+
+table tr:first-child th:first-child {
+  border-top-left-radius: 16px;
+}
+
+/* top-right border-radius */
+table tr:first-child th:last-child {
+  border-top-right-radius: 16px;
+}
+
+/* bottom-left border-radius */
+table tr:last-child td:first-child {
+  border-bottom-left-radius: 16px;
+}
+
+/* bottom-right border-radius */
+table tr:last-child td:last-child {
+  border-bottom-right-radius: 16px;
+}
+
+.table-btn{background-color: #f07b30;border: none;}
+.table-btn:focus{box-shadow: none;}
+.btn-info:not(:disabled):not(.disabled):active{background-color: #f07b30; border-color: #f07b30;box-shadow: none}
+@media (max-width: 1700px) {
+  .main-container {margin-left: 21%;}
+}
+@media (max-width: 1440px) {
+  .main-container {margin-left: 21%;}
+}
+
+@media (max-width: 1024px) {
+  #customers th {font-size: 13px;}
+  }
+  @media (max-width: 992px){
+#customers th {font-size: 11px;}
+.main-container {margin-left: 0%;}
+ #customers th {
+  padding: 8px;
+}
+#customers td{
+   padding: 4px;
+}
+.custom-scroll{overflow-x: auto;white-space: nowrap;}
+}
+@media (max-width: 480px){
+  .title-section{ padding: 10px 20px;}
+.title-section h3 { text-align: center;}
+.mob-txt-center{text-align: center;}
+#customers th {font-size: 13px;}
+#customers td{font-size: 13px;}
+}
