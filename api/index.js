@@ -122,14 +122,11 @@ async function startServer(application = createApplication()) {
 	const host = process.env.HOST || '127.0.0.1';
 	if (!Number.isInteger(port) || port < 1 || port > 65535) {
 		throw new Error('PORT must be an integer from 1 to 65535.');
-	}
-	await mongoose.connect(application.mongoUri, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-		useCreateIndex: true,
-		autoIndex: false,
-		autoCreate: false,
-		serverSelectionTimeoutMS: 10000,
+		}
+		await mongoose.connect(application.mongoUri, {
+			autoIndex: false,
+			autoCreate: false,
+			serverSelectionTimeoutMS: 10000,
 	});
 
 	await new Promise((resolve, reject) => {

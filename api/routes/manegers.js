@@ -117,13 +117,13 @@ router.post('/changeName', async (req, res) => {
 		if (!name || !_id) {
 			return res.status(400).send('name and worker ID are required');
 		}
-		const result = await Worker.updateOne(
-			{ _id, masterID: req.user._id },
-			{ $set: { name } }
-		);
-		if (!result.n) {
-			return res.status(404).send('worker not found');
-		}
+			const result = await Worker.updateOne(
+				{ _id, masterID: req.user._id },
+				{ $set: { name } }
+			);
+			if (!result.matchedCount) {
+				return res.status(404).send('worker not found');
+			}
 		res.status(200).send('Worker`s name updated successfully');
 	} catch (ex) {
 		res.status(400).send('something went wrong');

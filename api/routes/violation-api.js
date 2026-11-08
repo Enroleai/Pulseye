@@ -108,10 +108,10 @@ router.put('/updateviolationsites', async (req, res) => {
 				.updateOne(
 					{ _id: req.body._id, masterID: req.user._id }, // Filter
 					{ $set: body } // Update
-				)
-				.then((obj) => {
-					if (!obj.n) return res.status(404).send('violation not found');
-					res.status(200).send('violation updated successfully');
+					)
+					.then((obj) => {
+						if (!obj.matchedCount) return res.status(404).send('violation not found');
+						res.status(200).send('violation updated successfully');
 				// res.redirect('orders')
 			})
 			.catch((err) => {
