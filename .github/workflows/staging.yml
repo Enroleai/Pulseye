@@ -1,0 +1,78 @@
+name: Pulseye staging
+
+on:
+  push:
+    branches: [staging]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pulseye-staging
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: 14.21.3
+
+jobs:
+  validate-build:
+    name: Test and build staging application
+    runs-on: ubuntu-22.04
+    timeout-minutes: 35
+    steps:
+      - name: Check out staging revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          check-latest: false
+
+      - name: Install API dependencies
+        working-directory: api
+        run: npm ci --no-audit --fund=false
+
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci --no-audit --fund=false
+
+      - name: Run API tests
+        working-directory: api
+        run: npm test
+
+      - name: Run frontend unit tests
+        working-directory: frontend
+        env:
+          CI: 'true'
+          CHROME_BIN: /usr/bin/google-chrome
+        run: npm run test:ci
+
+      - name: Build frontend production bundle
+        working-directory: frontend
+        run: npm run build -- --configuration production
+
+      - name: Upload staging frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pulseye-staging-frontend-${{ github.sha }}
+          path: frontend/dist
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Publish staging summary
+        run: |
+          {
+            echo '### Pulseye staging validation passed'
+            echo ''
+            echo "Revision: \\`${GITHUB_SHA}\\`"
+            echo '- API tests passed.'
+            echo '- Frontend unit tests passed.'
+            echo '- Production frontend build passed.'
+            echo '- Frontend bundle uploaded as a staging artifact.'
+            echo '- No production deployment was performed.'
+          } >> "$GITHUB_STEP_SUMMARY"
