@@ -1,15 +1,17 @@
 import { Chart } from 'chart.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { DatePipe } from '@angular/common';
 import { appservice } from '../../app.service';
+import { timeout } from 'rxjs/operators';
 // import {Chart}
 
 @Component({
-  selector: 'app-productivitygraphpage',
-  templateUrl: './productivitygraphpage.component.html',
-  styleUrls: ['./productivitygraphpage.component.css']
+    selector: 'app-productivitygraphpage',
+    templateUrl: './productivitygraphpage.component.html',
+    styleUrls: ['./productivitygraphpage.component.css'],
+    standalone: false
 })
 export class ProductivitygraphpageComponent implements OnInit {
   productivityvalue: any[] = [];
@@ -51,11 +53,11 @@ export class ProductivitygraphpageComponent implements OnInit {
       headers: new HttpHeaders({
         'x-auth-token': t
       })
-    }).subscribe((res) => {
+    }).pipe(timeout(8000)).subscribe((res) => {
       if (this.myChart) {
         this.myChart.destroy()
       }
-      this.loading = !this.loading
+      this.loading = false
       console.log(res)
       for (let value of res) {
         this.monthvalue.push(value['month']);
@@ -63,6 +65,7 @@ export class ProductivitygraphpageComponent implements OnInit {
         this.violationvalue.push(value['data']['violation']);
         this.idletimevalue.push(value['data']['idletime']);
       }
+      if (!this.productivityvalue.length) return;
       this.myChart = new Chart("myChart", {
         type: 'bar',
         data: {
@@ -70,9 +73,10 @@ export class ProductivitygraphpageComponent implements OnInit {
           datasets: [
             {
               label: "Productivity",
-              backgroundColor: "#91c794",
+              backgroundColor: "#f59e0b",
               borderWidth: 0,
               data: this.productivityvalue,
+              barThickness: 15,
               barPercentage: 0.2,
             },
             {
@@ -80,6 +84,7 @@ export class ProductivitygraphpageComponent implements OnInit {
               backgroundColor: "#8993ca",
               borderWidth: 0,
               data: this.violationvalue,
+              barThickness: 15,
               barPercentage: 0.2,
             },
             {
@@ -87,6 +92,7 @@ export class ProductivitygraphpageComponent implements OnInit {
               backgroundColor: "#66cdda",
               borderWidth: 0,
               data: this.idletimevalue,
+              barThickness: 15,
               barPercentage: 0.2,
             }
           ]
@@ -132,6 +138,8 @@ export class ProductivitygraphpageComponent implements OnInit {
       });
 
 
+    }, () => {
+      this.loading = false;
     })
 
   }

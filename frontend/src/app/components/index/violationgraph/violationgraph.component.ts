@@ -1,14 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js'
-import * as moment from 'moment';
+import moment from 'moment';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-violationgraph',
-  templateUrl: './violationgraph.component.html',
-  styleUrls: ['./violationgraph.component.css']
+    selector: 'app-violationgraph',
+    templateUrl: './violationgraph.component.html',
+    styleUrls: ['./violationgraph.component.css'],
+    standalone: false
 })
 export class ViolationgraphComponent implements OnInit {
   violationlabelarr: any[] = [];
@@ -17,7 +18,7 @@ export class ViolationgraphComponent implements OnInit {
   enddate: any;
   loading: boolean = true;
   myChart!: Chart;
-  constructor(private http: HttpClient, private service: appservice, private serice: appservice, private datepipe: DatePipe) { }
+  constructor(private http: HttpClient, private service: appservice, private serice: appservice, private datepipe: DatePipe, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     let date: any = moment()
@@ -37,6 +38,9 @@ export class ViolationgraphComponent implements OnInit {
   }
 
   violationgraphrequest(startdate: any, enddate: any) {
+    this.loading = false;
+    this.cdr.detectChanges();
+    setTimeout(() => { if (this.loading) { this.loading = false; this.cdr.detectChanges(); } }, 8000);
     let url = this.service.url;
     let token = localStorage.getItem('x-auth-token')
     let t = JSON.parse(`${token}`)
@@ -61,7 +65,7 @@ export class ViolationgraphComponent implements OnInit {
             datasets: [
               {
                 label: "",
-                backgroundColor: ["#f5997b", "#7bbaee", "#f3d16b", "#64b5ae", "#91c794"],
+                backgroundColor: ["#4f7fd1", "#7bbaee", "#f59e0b", "#8993ca", "#f59e0b"],
                 data: this.violationamountarr,
                 borderWidth: 0,
                 barPercentage: 0.2

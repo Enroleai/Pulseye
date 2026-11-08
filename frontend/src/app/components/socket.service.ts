@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { ApplicationRef, Injectable } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
 import { environment } from '../../environments/environment';
 
@@ -15,12 +15,12 @@ function storedAuthToken(): string | null {
 
 @Injectable()
 export class SocketOne extends Socket {
-  constructor() {
+  constructor(appRef: ApplicationRef) {
     super({
       url: environment.apiBaseUrl,
       options: {
         query: { token: storedAuthToken() || '' }
       }
-    });
+    }, appRef);
   }
 }

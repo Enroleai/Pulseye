@@ -6,9 +6,10 @@ import { appservice } from '../app.service';
 
 
 @Component({
-  selector: 'app-latestsnapshotpages',
-  templateUrl: './latestsnapshotpages.component.html',
-  styleUrls: ['./latestsnapshotpages.component.css']
+    selector: 'app-latestsnapshotpages',
+    templateUrl: './latestsnapshotpages.component.html',
+    styleUrls: ['./latestsnapshotpages.component.css'],
+    standalone: false
 })
 export class LatestsnapshotpagesComponent implements OnInit {
   snapshotdata: Latestsnapshot[] = []

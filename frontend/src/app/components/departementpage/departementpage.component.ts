@@ -6,9 +6,10 @@ import { appservice } from '../app.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
-  selector: 'app-departementpage',
-  templateUrl: './departementpage.component.html',
-  styleUrls: ['./departementpage.component.css']
+    selector: 'app-departementpage',
+    templateUrl: './departementpage.component.html',
+    styleUrls: ['./departementpage.component.css'],
+    standalone: false
 })
 export class DepartementpageComponent implements OnInit {
   @ViewChild('modalContentBody', { read: ViewContainerRef }) formc!: ElementRef;

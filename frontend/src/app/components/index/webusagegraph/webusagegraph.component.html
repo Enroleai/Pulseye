@@ -1,10 +1,11 @@
 <app-card>
   <h1 class="h5 dashheadding">Web Usage</h1>
-  <div *ngIf="loading">
+  <div *ngIf="loading" class="report-state report-state-loading">
     <app-loadingspinner2></app-loadingspinner2>
+    <span>Loading web usage data…</span>
   </div>
    <div *ngIf="!loading">
-      <div *ngIf="webUsescountgraph.length===0" class="mt-2 mess-show">No Data is available!</div>
+      <div *ngIf="webUsescountgraph.length===0" class="report-state"><strong>No web usage data</strong><span>There is no web activity for the selected period.</span></div>
     </div>
   <div style="overflow-x:auto;white-space: nowrap;">
   <div style="width:50%">

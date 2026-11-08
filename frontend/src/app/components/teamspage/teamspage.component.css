@@ -36,7 +36,7 @@ label {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  font-family: sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   min-width: 100%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
   border-radius: 16px;
@@ -93,15 +93,15 @@ table tr:last-child td:last-child {
   pointer-events: none;
   color: #aaa;
 }
-.add-btn{border-color: #f07b30;}
-.add-btn:hover, .add-btn:active, .add-btn:focus{background: #f07b30;color: #fff;border-color: #f07b30;box-shadow: none;}
-.add-btn:not(:disabled):not(.disabled):active{background: #f07b30;color: #fff;border-color: #f07b30;box-shadow: none;}
+.add-btn{border-color: #f59e0b;}
+.add-btn:hover, .add-btn:active, .add-btn:focus{background: #f59e0b;color: #fff;border-color: #f59e0b;box-shadow: none;}
+.add-btn:not(:disabled):not(.disabled):active{background: #f59e0b;color: #fff;border-color: #f59e0b;box-shadow: none;}
 .search-box:focus{box-shadow: none;}
 .department-btn{margin: 20px 0 0 0px;}
 .departmentauto{width: 100%;margin: 0 auto;}
 .styled-table td{border: 1px solid #cdcdcd;}
 .styled-table tbody tr:nth-child(even){background: #fff;}
-.styled-table td.text-primary{color: #f07b30 !important;}
+.styled-table td.text-primary{color: #f59e0b !important;}
 @media (max-width: 1700px) {
   .main-container {margin-left: 21%}
 

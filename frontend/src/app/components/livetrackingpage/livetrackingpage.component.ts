@@ -3,14 +3,15 @@ import { appservice } from './../app.service';
 
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 // import { Socket } from 'SocketIoModule';
 import { SocketOne } from '../socket.service';
 @Component({
-  selector: 'app-livetrackingpage',
-  templateUrl: './livetrackingpage.component.html',
-  styleUrls: ['./livetrackingpage.component.css'],
-  providers: [SocketOne]
+    selector: 'app-livetrackingpage',
+    templateUrl: './livetrackingpage.component.html',
+    styleUrls: ['./livetrackingpage.component.css'],
+    providers: [SocketOne],
+    standalone: false
 })
 export class LivetrackingpageComponent implements OnInit, OnDestroy {
   image: string = '';

@@ -2,14 +2,15 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import * as moment from 'moment';
+import moment from 'moment';
 import { saveAs } from 'file-saver'
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-snapshotbyid',
-  templateUrl: './snapshotbyid.component.html',
-  styleUrls: ['./snapshotbyid.component.css']
+    selector: 'app-snapshotbyid',
+    templateUrl: './snapshotbyid.component.html',
+    styleUrls: ['./snapshotbyid.component.css'],
+    standalone: false
 })
 export class SnapshotbyidComponent implements OnInit {
   employeeid: string = ''

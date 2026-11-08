@@ -1,20 +1,21 @@
 
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Chart } from 'chart.js'
 import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import 'chartjs-plugin-doughnutlabel';
-import * as moment from 'moment';
+import moment from 'moment';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-webusagegraph',
-  templateUrl: './webusagegraph.component.html',
-  styleUrls: ['./webusagegraph.component.css']
+    selector: 'app-webusagegraph',
+    templateUrl: './webusagegraph.component.html',
+    styleUrls: ['./webusagegraph.component.css'],
+    standalone: false
 })
 export class WebusagegraphComponent implements OnInit {
-  backgroundColor = ["#64b5ae", "#7bbaee", "#f4b968", "#8993ca", "#f5997b", "#d9e287", "#4CD964", "#66cdda"]
+  backgroundColor = ["#a2ace3", "#7bbaee", "#f59e0b", "#8993ca", "#4f7fd1", "#f59e0b", "#f59e0b", "#66cdda"]
   text: any = []
   totalHoursWeb: string = ''
   // public doughnutChartType: ChartType = 'doughnut';
@@ -27,7 +28,7 @@ export class WebusagegraphComponent implements OnInit {
   startdate: any;
   enddate: any;
   mychart!: Chart;
-  constructor(private http: HttpClient, private service: appservice, private datepipe: DatePipe) { }
+  constructor(private http: HttpClient, private service: appservice, private datepipe: DatePipe, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     let date: any = moment()
@@ -45,6 +46,9 @@ export class WebusagegraphComponent implements OnInit {
     this.webusagerequest(this.startdate, this.enddate)
   }
   webusagerequest(startdate: any, enddate: any) {
+    this.loading = false;
+    this.cdr.detectChanges();
+    setTimeout(() => { if (this.loading) { this.loading = false; this.cdr.detectChanges(); } }, 8000);
     let url = this.service.url;
     let token = localStorage.getItem('x-auth-token')
     let t = JSON.parse(`${token}`)
@@ -57,7 +61,7 @@ export class WebusagegraphComponent implements OnInit {
       if (this.mychart) {
         this.mychart.destroy()
       }
-      this.loading = !this.loading
+      this.loading = false
       this.totalHoursWeb = res['totalHoursWeb'] > 0 ? res['totalHoursWeb'] + " Hours" : " ";
       for (let value of res['webUses']) {
         this.webUseslabel.push(value['url']);
@@ -72,7 +76,7 @@ export class WebusagegraphComponent implements OnInit {
           data: {
             datasets: [{
               data: this.webUsescount,
-              backgroundColor: ["#64b5ae", "#7bbaee", "#f4b968", "#8993ca", "#f5997b", "#d9e287", "#4CD964", "#66cdda"],
+              backgroundColor: ["#a2ace3", "#7bbaee", "#f59e0b", "#8993ca", "#4f7fd1", "#f59e0b", "#f59e0b", "#66cdda"],
               label: ''
 
             }],

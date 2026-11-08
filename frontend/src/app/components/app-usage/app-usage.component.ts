@@ -4,12 +4,13 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { appservice } from '../app.service';
 import { DatePipe } from '@angular/common';
-import * as moment from 'moment';
+import moment from 'moment';
 
 @Component({
-  selector: 'app-app-usage',
-  templateUrl: './app-usage.component.html',
-  styleUrls: ['./app-usage.component.css']
+    selector: 'app-app-usage',
+    templateUrl: './app-usage.component.html',
+    styleUrls: ['./app-usage.component.css'],
+    standalone: false
 })
 export class AppUsageComponent implements OnInit {
   appusagedata: Appusage[] = []

@@ -6,9 +6,10 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-teamspage',
-  templateUrl: './teamspage.component.html',
-  styleUrls: ['./teamspage.component.css']
+    selector: 'app-teamspage',
+    templateUrl: './teamspage.component.html',
+    styleUrls: ['./teamspage.component.css'],
+    standalone: false
 })
 export class TeamspageComponent implements OnInit {
 

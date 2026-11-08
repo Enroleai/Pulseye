@@ -1,58 +1,248 @@
+:host {
+  --pulse-blue: #123998;
+  --pulse-blue-deep: #0b236f;
+  --pulse-blue-soft: #eef3ff;
+  --pulse-orange: #f59e0b;
+  --pulse-ink: #17213d;
+  --pulse-muted: #6f7b97;
+  --pulse-line: #e4e9f3;
+  --pulse-surface: #ffffff;
+  display: block;
+  min-height: 100vh;
+  background: #f6f8fc;
+}
+
 .main-container {
-  padding: 25px;
-  margin-top: 5.3rem;
-  margin-left: 16.3rem;
+  min-height: 100vh;
+  margin: 0 0 0 290px;
+  padding: 7.2rem 2.25rem 3rem;
+  color: var(--pulse-ink);
   font-size: 12px;
-  /* z-index: -1000;  */
 }
-.h5 {
-  font-size: 1.5rem;
+
+.dashboard-shell {
+  width: 100%;
+  max-width: 1680px;
+  margin: 0 auto;
 }
-.status-picker{justify-content: center;}
-.p0{padding: 0;}
-.banner-add{background: #f07b30;color: #fff;margin-left: 20px;margin-bottom: 20px;border-radius: 6px;}
-.mb-20{margin-bottom: 25px;}
-#customers tbody tr:odd{background: #f5f5f5;}
 
-#table tbody:nth-child(even){background: #f5f5f5;}
-table td{border: 1px solid #cdcdcd;padding: 10px;}
-.status-away{color: #f07b30;}
-
-.custom-datepicker{width: 40%;margin: 0 auto;}
-
-@media (max-width: 1700px) {
-.custom-datepicker{width: 50%;margin: 0 auto;}
-.datepickcontainer {width: 100%;}
+.dashboard-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
 }
+
+.eyebrow {
+  margin: 0 0 0.4rem;
+  color: var(--pulse-blue);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.dashboard-heading h1 {
+  margin: 0;
+  color: var(--pulse-ink);
+  font-size: clamp(1.7rem, 2.4vw, 2.55rem);
+  font-weight: 800;
+  letter-spacing: -0.045em;
+}
+
+.dashboard-subtitle {
+  max-width: 620px;
+  margin: 0.55rem 0 0;
+  color: var(--pulse-muted);
+  font-size: 0.98rem;
+}
+
+.dashboard-heading-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 0 0 auto;
+  padding: 0.6rem 0.85rem;
+  border: 1px solid #d9e3fb;
+  border-radius: 999px;
+  background: var(--pulse-blue-soft);
+  color: var(--pulse-blue);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.pulse-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--pulse-orange);
+  box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+}
+
+.dashboard-announcement {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  min-height: 70px;
+  margin-bottom: 1.3rem;
+  padding: 0.9rem 1.15rem;
+  border: 1px solid #dce5f8;
+  border-radius: 16px;
+  background: linear-gradient(105deg, var(--pulse-blue) 0%, #1f50ba 100%);
+  box-shadow: 0 12px 24px rgba(18, 57, 152, 0.15);
+  color: #fff;
+}
+
+.announcement-icon {
+  display: grid;
+  width: 2.35rem;
+  height: 2.35rem;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--pulse-orange);
+  color: var(--pulse-blue-deep);
+  font-size: 1rem;
+}
+
+.announcement-copy {
+  display: flex;
+  min-width: 0;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.announcement-copy strong { font-size: 0.92rem; }
+.announcement-copy span { color: #dce7ff; font-size: 0.78rem; }
+
+.announcement-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: #fff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.announcement-link:hover { color: var(--pulse-orange); text-decoration: none; }
+
+.dashboard-controls {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+.date-control {
+  min-width: 260px;
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--pulse-line);
+  border-radius: 14px;
+  background: var(--pulse-surface);
+  box-shadow: 0 5px 16px rgba(30, 55, 105, 0.05);
+}
+
+.control-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--pulse-muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+#reportrange { color: var(--pulse-ink); font-size: 0.9rem; font-weight: 700; }
+
+.status-picker {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.7rem;
+}
+
+.status-card {
+  display: flex;
+  min-width: 120px;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid var(--pulse-line);
+  border-radius: 14px;
+  background: var(--pulse-surface);
+  color: var(--pulse-ink);
+  box-shadow: 0 5px 16px rgba(30, 55, 105, 0.05);
+  text-align: left;
+}
+
+button.status-card { cursor: pointer; font: inherit; }
+button.status-card:hover { border-color: #b8c9f2; transform: translateY(-1px); }
+.status-card strong { font-size: 1.45rem; line-height: 1; }
+.status-label { display: inline-flex; align-items: center; gap: 0.45rem; color: var(--pulse-muted); font-size: 0.76rem; font-weight: 700; }
+.status-dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; }
+.status-dot-blue { background: var(--pulse-blue); }
+.status-dot-slate { background: #8792a9; }
+.status-dot-yellow { background: var(--pulse-orange); }
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.dashboard-chart-shell,
+.dashboard-wide-card {
+  min-width: 0;
+  border: 0;
+  border-radius: 14px;
+  background: var(--pulse-surface);
+  box-shadow: 0 8px 24px rgba(30, 55, 105, 0.07);
+  overflow: hidden;
+}
+
+.dashboard-chart-shell { min-height: 300px; }
+.dashboard-wide-card { width: 100%; }
+
+/* Chart components historically brought their own cards and outlines.
+   Keep the chart canvas dimensions, but use one surface per dashboard panel. */
+.dashboard-chart-shell ::ng-deep .card,
+.dashboard-chart-shell ::ng-deep .card-check,
+.dashboard-chart-shell ::ng-deep .chart-container,
+.dashboard-wide-card ::ng-deep .card,
+.dashboard-wide-card ::ng-deep .card-check {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+.dashboard-chart-shell ::ng-deep .card-header,
+.dashboard-wide-card ::ng-deep .card-header {
+  border-bottom: 0 !important;
+  background: transparent !important;
+}
+
 @media (max-width: 1295px) {
-  .main-container {
-    margin-top: 5.3rem;
-    margin-left: 12rem;
-    padding: 20px;
-  }
+  .main-container { margin-left: 220px; padding-right: 1.25rem; padding-left: 1.25rem; }
 }
-@media (max-width: 1024px) {
-  .custom-datepicker {width: 65%;}
-  .datepickcontainer{width: 100%;}
-}
+
 @media (max-width: 992px) {
-  .main-container {
-    margin-top: 5.3rem;
-    margin-left: 0;
-    padding: 0px;
-  }
-  .h1 {
-    font-size: 12px;
-  }
-  .mob-add{display: none;}
-  .custom-datepicker{text-align: center;margin-top: 20px}
-  .status-picker{justify-content: center;}
+  .main-container { margin-left: 0; padding: 6rem 1rem 2rem; }
+  .dashboard-heading, .dashboard-controls { align-items: stretch; flex-direction: column; }
+  .dashboard-heading-badge { align-self: flex-start; }
+  .status-picker { justify-content: stretch; }
+  .status-card { flex: 1; }
 }
-.statuscontainer {
-  font-size: 16px;
-}
-@media (max-width: 480px) {
-  #last-card{margin: 0;}
-  .totalcard .card {overflow-x: auto;white-space: nowrap;}
-  .custom-datepicker {width: 100%;}
+
+@media (max-width: 680px) {
+  .dashboard-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+  .dashboard-announcement { align-items: flex-start; flex-wrap: wrap; }
+  .announcement-link { width: 100%; padding-left: 3.25rem; }
+  .status-picker { gap: 0.45rem; }
+  .status-card { min-width: 0; padding: 0.7rem; }
+  .status-card strong { font-size: 1.25rem; }
 }

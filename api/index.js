@@ -1,3 +1,5 @@
+require('./compat-node26');
+
 const config = require('config');
 const Joi = require('joi');
 const cors = require('cors');

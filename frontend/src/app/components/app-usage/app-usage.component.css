@@ -15,7 +15,7 @@
   color: #123998;
 }
 #customers {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Inter", "Segoe UI", sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
@@ -65,9 +65,9 @@ table tr:last-child td:last-child {
   border-bottom-right-radius: 16px;
 }
 
-.table-btn{background-color: #f07b30;border: none;}
+.table-btn{background-color: #f59e0b;border: none;}
 .table-btn:focus{box-shadow: none;}
-.btn-info:not(:disabled):not(.disabled):active{background-color: #f07b30; border-color: #f07b30;box-shadow: none}
+.btn-info:not(:disabled):not(.disabled):active{background-color: #f59e0b; border-color: #f59e0b;box-shadow: none}
 @media (max-width: 1700px) {
   .main-container {margin-left: 21%;}
 }

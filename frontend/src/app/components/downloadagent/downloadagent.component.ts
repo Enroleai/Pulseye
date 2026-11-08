@@ -3,9 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-downloadagent',
-  templateUrl: './downloadagent.component.html',
-  styleUrls: ['./downloadagent.component.css']
+    selector: 'app-downloadagent',
+    templateUrl: './downloadagent.component.html',
+    styleUrls: ['./downloadagent.component.css'],
+    standalone: false
 })
 export class DownloadagentComponent implements OnInit {
   linkwindows: any;

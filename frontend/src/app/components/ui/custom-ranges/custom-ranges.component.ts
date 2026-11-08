@@ -1,109 +1,76 @@
 import { appservice } from './../../app.service';
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import * as moment from 'moment';
+import { Component, OnInit } from '@angular/core';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-custom-ranges',
   templateUrl: './custom-ranges.component.html',
-  styleUrls: ['./custom-ranges.component.css']
+  styleUrls: ['./custom-ranges.component.css'],
+  standalone: false
 })
-export class CustomRangesComponent implements OnInit{
-  opens:boolean | undefined;
-  selected: any;
+export class CustomRangesComponent implements OnInit {
+  opens: boolean | undefined;
+  selected: { startDate: Dayjs; endDate: Dayjs };
   alwaysShowCalendars: boolean;
   showRangeLabelOnInput: boolean;
   keepCalendarOpeningWithRange: boolean;
-  maxDate: moment.Moment;
-  minDate: moment.Moment;
-  invalidDates: moment.Moment[] = [];
+  maxDate: Dayjs;
+  minDate: Dayjs;
+  invalidDates: Dayjs[] = [];
   tooltips = [
-    {date: moment(), text: 'Today is just unselectable'},
-    {date:  moment().add(2, 'days'), text: 'Yeeeees!!!'}
+    { date: dayjs(), text: 'Today is just unselectable' },
+    { date: dayjs().add(2, 'days'), text: 'Yeeeees!!!' }
   ];
-  inlineDateTime:any;
-  ranges: any = {
-    Today: [moment(), moment()],
-    Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Last Month': [
-      moment()
-        .subtract(1, 'month')
-        .startOf('month'),
-      moment()
-        .subtract(1, 'month')
-        .endOf('month')
-    ],
-    'Last 3 Month': [
-      moment()
-        .subtract(3, 'month')
-        .startOf('month'),
-      moment()
-        .subtract(1, 'month')
-        .endOf('month')
-    ]
+  inlineDateTime: unknown;
+  ranges: Record<string, [Dayjs, Dayjs]> = {
+    Today: [dayjs(), dayjs()],
+    Yesterday: [dayjs().subtract(1, 'days'), dayjs().subtract(1, 'days')],
+    'Last 7 Days': [dayjs().subtract(6, 'days'), dayjs()],
+    'Last 30 Days': [dayjs().subtract(29, 'days'), dayjs()],
+    'This Month': [dayjs().startOf('month'), dayjs().endOf('month')],
+    'Last Month': [dayjs().subtract(1, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')],
+    'Last 3 Month': [dayjs().subtract(3, 'month').startOf('month'), dayjs().subtract(1, 'month').endOf('month')]
   };
 
-  isInvalidDate = (m: moment.Moment) =>  {
-    return this.invalidDates.some(d => d.isSame(m, 'day') );
-  }
-  isTooltipDate = (m: moment.Moment) =>  {
-    const tooltip = this.tooltips.find(tt => tt.date.isSame(m, 'day'));
-    if (tooltip) {
-      return tooltip.text;
-    } else {
-      return false;
-    }
-  }
+  isInvalidDate = (date: Dayjs): boolean => this.invalidDates.some((item) => item.isSame(date, 'day'));
 
-  constructor(private datepipe: DatePipe,private service:appservice) {
-    this.maxDate = moment().add(2,  'weeks');
-    this.minDate = moment().subtract(3, 'days');
+  isTooltipDate = (date: Dayjs): string | false => {
+    const tooltip = this.tooltips.find((item) => item.date.isSame(date, 'day'));
+    return tooltip?.text || false;
+  };
 
+  constructor(private datepipe: DatePipe, private service: appservice) {
+    this.maxDate = dayjs().add(2, 'weeks');
+    this.minDate = dayjs().subtract(3, 'days');
     this.alwaysShowCalendars = true;
     this.keepCalendarOpeningWithRange = true;
     this.showRangeLabelOnInput = true;
     this.selected = {
-      startDate: moment().subtract(1, 'days').set({hours: 0, minutes: 0}),
-      endDate: moment().subtract(1, 'days').set({hours: 23, minutes: 59})
+      startDate: dayjs().subtract(1, 'days').hour(0).minute(0),
+      endDate: dayjs().subtract(1, 'days').hour(23).minute(59)
     };
   }
-  
-  rangeClicked(range:any) {
+
+  rangeClicked(range: unknown): void {
     console.log('[rangeClicked] range is : ', range);
   }
-  datesUpdated(range:any) {
+
+  datesUpdated(range: unknown): void {
     console.log('[datesUpdated] range is : ', range);
   }
 
-  ngOnInit() {
-    
-        // console.log('ngonit')
-    
-  }
-  dateup(event:any){
-    let enddate:any;
-    let startdate:any;
-    if(event['startDate']===null){
-      let todaydate:any=moment()
-      enddate= this.datepipe.transform(todaydate['_d'],'yyyy-MM-dd')
-      startdate=this.datepipe.transform(todaydate['_d'],'yyyy-MM-dd')
-      console.log(`${startdate} and ${enddate}`)
-      let rangedate:object={startdate:startdate,enddate:enddate}
-     this.service.daterange.next(rangedate)
-      return
-    }
-      startdate= this.datepipe.transform(event['startDate']['_d'],'yyyy-MM-dd')
-      enddate=this.datepipe.transform(event['endDate']['_d'],'yyyy-MM-dd')
-      let rangedate:object={startdate:startdate,enddate:enddate}
-      this.service.daterange.next(rangedate)
-    
-  }
-  choosedDateTime(e:any) {
-    console.log(e)
-    this.inlineDateTime = e;
+  ngOnInit(): void {}
+
+  dateup(event: { startDate?: Dayjs | null; endDate?: Dayjs | null }): void {
+    const start = event.startDate || dayjs();
+    const end = event.endDate || start;
+    const startdate = this.datepipe.transform(start.toDate(), 'yyyy-MM-dd');
+    const enddate = this.datepipe.transform(end.toDate(), 'yyyy-MM-dd');
+    this.service.daterange.next({ startdate, enddate });
   }
 
+  choosedDateTime(event: unknown): void {
+    this.inlineDateTime = event;
+  }
 }

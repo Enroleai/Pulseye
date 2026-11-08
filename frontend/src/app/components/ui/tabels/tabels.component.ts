@@ -3,12 +3,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { appservice } from '../../app.service';
 import { DatePipe } from '@angular/common';
-import * as moment from 'moment';
+import moment from 'moment';
 import * as XLSX from 'xlsx';
 @Component({
-  selector: 'app-tabels',
-  templateUrl: './tabels.component.html',
-  styleUrls: ['./tabels.component.css']
+    selector: 'app-tabels',
+    templateUrl: './tabels.component.html',
+    styleUrls: ['./tabels.component.css'],
+    standalone: false
 })
 export class TabelsComponent implements OnInit {
   loading = false;

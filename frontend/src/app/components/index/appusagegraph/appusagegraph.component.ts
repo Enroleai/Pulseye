@@ -1,22 +1,23 @@
 import { Chart } from 'chart.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewEncapsulation } from '@angular/core';
 import 'chartjs-plugin-doughnutlabel';
 import { DatePipe } from '@angular/common';
 import { appservice } from '../../app.service';
-import * as moment from 'moment';
+import moment from 'moment';
 @Component({
-  selector: 'app-appusagegraph',
-  templateUrl: './appusagegraph.component.html',
-  styleUrls: ['./appusagegraph.component.css'],
-  encapsulation: ViewEncapsulation.None,
+    selector: 'app-appusagegraph',
+    templateUrl: './appusagegraph.component.html',
+    styleUrls: ['./appusagegraph.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AppusagegraphComponent implements OnInit {
   tooltiplabels: any[] = []
   text: any = [];
   loading: boolean = true;
   colors: any[] = [];
-  arrayNum = ["#ffd281", "#7bbaee", "#f5997b", "#91c794", "#69c3ed", "#f3d16b", "#8993ca", "#d9e287", "#66cdda", "#64b5ae", "#69c3ed", "#f4b968", "#a2ace3", "#d7ff81", "#6167b0", "#a84ce6", "#fa435c", "#fa5843", "#f0fa69", "#51fcb8", "#ffbe81", "#c8ff81", "#38d657", "#4e3e7d", "#eb73c9"];
+  arrayNum = ["#fbbf24", "#7bbaee", "#4f7fd1", "#f59e0b", "#69c3ed", "#f59e0b", "#8993ca", "#f59e0b", "#66cdda", "#a2ace3", "#69c3ed", "#f59e0b", "#a2ace3", "#f59e0b", "#1f50ba", "#2f64c8", "#4f7fd1", "#2f64c8", "#f59e0b", "#f59e0b", "#fbbf24", "#f59e0b", "#f59e0b", "#123998", "#4f7fd1"];
   ArrNoDupe = (a: any) => {
     var temp: any = {};
     for (var i = 0; i < a.length; i++)
@@ -42,7 +43,7 @@ export class AppusagegraphComponent implements OnInit {
   startdate: string | null | undefined;
   enddate: string | null | undefined;
 
-  constructor(private http: HttpClient, private datepipe: DatePipe, private service: appservice) { }
+  constructor(private http: HttpClient, private datepipe: DatePipe, private service: appservice, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     let date: any = moment()
@@ -63,6 +64,9 @@ export class AppusagegraphComponent implements OnInit {
 
   }
   appusagerequest(startdate: any, enddate: any) {
+    this.loading = false;
+    this.cdr.detectChanges();
+    setTimeout(() => { if (this.loading) { this.loading = false; this.cdr.detectChanges(); } }, 8000);
     let url = this.service.url;
     let token = localStorage.getItem('x-auth-token')
     let t = JSON.parse(`${token}`)
@@ -150,7 +154,7 @@ export class AppusagegraphComponent implements OnInit {
           this.text = this.mychart.generateLegend();
           console.log(this.text)
         }
-        this.loading = !this.loading
+        this.loading = false
 
       })
 

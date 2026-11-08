@@ -1,15 +1,16 @@
 <app-card>
-  <div *ngIf="loading">
+  <div *ngIf="loading" class="report-state report-state-loading">
     <app-loadingspinner2></app-loadingspinner2>
+    <span>Loading app usage data…</span>
   </div>
   <div class="h5 dashheadding">App usage</div>
   <div *ngIf="!loading">
-      <div *ngIf="appUsaesarr.length===0" class="mt-2 mess-show">No Data is available!</div>
+      <div *ngIf="appUsaesarr.length===0" class="report-state"><strong>No app usage data</strong><span>There is no application activity for the selected period.</span></div>
     </div>
     <div class="app-graph-left">
     <canvas id="app-doughnut-chart" width="300" height="150"></canvas>
   </div>
-  <div class="standard">
+  <div *ngIf="!loading && appUsaesarr.length" class="standard">
     <ul>
       <li *ngFor="let item of text">
         <div [ngStyle]="{'background-color': item['color']?item['color']:'white'}">

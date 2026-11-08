@@ -8,10 +8,11 @@ import { appservice } from '../app.service';
 import { Website } from './models/website.model';
 
 @Component({
-  selector: 'app-addviolation',
-  templateUrl: './addviolation.component.html',
-  styleUrls: ['./addviolation.component.css'],
-  encapsulation: ViewEncapsulation.None
+    selector: 'app-addviolation',
+    templateUrl: './addviolation.component.html',
+    styleUrls: ['./addviolation.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class AddviolationComponent implements OnInit {
 

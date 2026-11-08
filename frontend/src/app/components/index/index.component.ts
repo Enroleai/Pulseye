@@ -5,9 +5,10 @@ import { employeemodel } from 'src/app/models/employee.model';
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-index',
-  templateUrl: './index.component.html',
-  styleUrls: ['./index.component.css']
+    selector: 'app-index',
+    templateUrl: './index.component.html',
+    styleUrls: ['./index.component.css'],
+    standalone: false
 })
 export class IndexComponent implements OnInit, OnDestroy {
   online: number = 0;

@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-employeonli',
-  templateUrl: './employeonli.component.html',
-  styleUrls: ['./employeonli.component.css']
+    selector: 'app-employeonli',
+    templateUrl: './employeonli.component.html',
+    styleUrls: ['./employeonli.component.css'],
+    standalone: false
 })
 export class EmployeonliComponent implements OnInit {
   loading: boolean = true;

@@ -7,9 +7,10 @@ import { appservice } from '../../app.service';
 // import { from } from 'rxjs';
 
 @Component({
-  selector: 'app-empbackdrop',
-  templateUrl: './empbackdrop.component.html',
-  styleUrls: ['./empbackdrop.component.css']
+    selector: 'app-empbackdrop',
+    templateUrl: './empbackdrop.component.html',
+    styleUrls: ['./empbackdrop.component.css'],
+    standalone: false
 })
 export class EmpbackdropComponent implements OnInit {
   @ViewChild('form') form: NgForm | undefined

@@ -4,9 +4,10 @@ import { Component, OnInit } from '@angular/core';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-activitylog',
-  templateUrl: './activitylog.component.html',
-  styleUrls: ['./activitylog.component.css']
+    selector: 'app-activitylog',
+    templateUrl: './activitylog.component.html',
+    styleUrls: ['./activitylog.component.css'],
+    standalone: false
 })
 export class ActivitylogComponent implements OnInit {
   activity: any[] = []

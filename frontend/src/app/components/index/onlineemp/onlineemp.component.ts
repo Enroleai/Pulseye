@@ -5,9 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-onlineemp',
-  templateUrl: './onlineemp.component.html',
-  styleUrls: ['./onlineemp.component.css']
+    selector: 'app-onlineemp',
+    templateUrl: './onlineemp.component.html',
+    styleUrls: ['./onlineemp.component.css'],
+    standalone: false
 })
 export class OnlineempComponent implements OnInit {
   loading: boolean = true;

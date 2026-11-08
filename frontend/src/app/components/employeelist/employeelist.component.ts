@@ -6,10 +6,10 @@ import { employeemodel } from 'src/app/models/employee.model';
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-employeelist',
-  templateUrl: './employeelist.component.html',
-  styleUrls: ['./employeelist.component.css'],
-  // providers: [SocketOne]
+    selector: 'app-employeelist',
+    templateUrl: './employeelist.component.html',
+    styleUrls: ['./employeelist.component.css'],
+    standalone: false
 })
 export class EmployeelistComponent implements OnInit {
   employeedata: employeemodel[] = []

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-sidenavbar',
-  templateUrl: './sidenavbar.component.html',
-  styleUrls: ['./sidenavbar.component.css']
+    selector: 'app-sidenavbar',
+    templateUrl: './sidenavbar.component.html',
+    styleUrls: ['./sidenavbar.component.css'],
+    standalone: false
 })
 export class SidenavbarComponent implements OnInit {
 

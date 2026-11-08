@@ -6,11 +6,11 @@ import { employeemodel } from 'src/app/models/employee.model';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-violationbackdrop',
-  templateUrl: './violationbackdrop.component.html',
-  styleUrls: ['./violationbackdrop.component.css'],
-  encapsulation: ViewEncapsulation.None
-
+    selector: 'app-violationbackdrop',
+    templateUrl: './violationbackdrop.component.html',
+    styleUrls: ['./violationbackdrop.component.css'],
+    encapsulation: ViewEncapsulation.None,
+    standalone: false
 })
 export class ViolationbackdropComponent implements OnInit {
 

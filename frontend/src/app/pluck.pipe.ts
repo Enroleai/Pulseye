@@ -1,11 +1,12 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
-  name: 'pluck'
+    name: 'pluck',
+    standalone: false
 })
 export class PluckPipe implements PipeTransform {
 
-  transform(input: any[]): unknown {
+  transform(input: any[]): any[] {
     return input.map(value => value);
   }
 

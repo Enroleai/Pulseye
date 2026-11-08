@@ -5,7 +5,7 @@ input {
   font-size: 12px;
 }
 
-.add-btn{color: #fff;border-color: #f07b30;}
-.add-btn:hover, .add-btn:active, .add-btn:focus{background: #f07b30;color: #fff;border-color: #f07b30;box-shadow: none;}
-.add-btn:not(:disabled):not(.disabled):active{background: #f07b30;color: #fff;border-color: #f07b30;box-shadow: none;}
+.add-btn{color: #fff;border-color: #f59e0b;}
+.add-btn:hover, .add-btn:active, .add-btn:focus{background: #f59e0b;color: #fff;border-color: #f59e0b;box-shadow: none;}
+.add-btn:not(:disabled):not(.disabled):active{background: #f59e0b;color: #fff;border-color: #f59e0b;box-shadow: none;}
 .multiselect-dropdown .dropdown-btn .dropdown-multiselect__caret:before{border-width: 5px 5px 0;}

@@ -1,23 +1,22 @@
 <div class="datepickcontainer">
   <div class="form-group">
-    <div
-      class="input-group"
-      name="daterangeInput"
-      daterangepicker
-      [options]="options"
-      (selected)="selectedDate($event)"
-      (applyDaterangepicker)="applyDate($event)"
-    >
-      <span class="form-control uneditable-input" class="left-datepick">
-        {{ daterange.start | date: "MMMM d, y" }} -
-        {{ daterange.end | date: "MMMM d, y" }}
+    <div class="input-group modern-date-picker">
+      <input
+        type="text"
+        name="daterangeInput"
+        ngxDaterangepickerMd
+        startKey="start"
+        endKey="end"
+        [(ngModel)]="selected"
+        [ranges]="ranges"
+        [locale]="locale"
+        (datesUpdated)="selectedDate($event)"
+        class="form-control left-datepick"
+        readonly
+      />
+      <span class="input-group-text" aria-hidden="true">
+        <i class="fa fa-calendar"></i>
       </span>
-      <div class="my-2">
-        <i
-          class="glyphicon glyphicon-calendar fa fa-calendar"
-          style="font-size: large"
-        ></i>
-      </div>
     </div>
   </div>
 </div>

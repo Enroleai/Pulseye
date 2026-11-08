@@ -9,7 +9,7 @@ import { TopnavComponent } from './components/topnav/topnav.component';
 import { SidenavbarComponent } from './components/sidenavbar/sidenavbar.component';
 import { CardComponent } from './components/ui/card/card.component';
 import { TabelsComponent } from './components/ui/tabels/tabels.component';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoginpageComponent } from './components/loginpage/loginpage.component'
 import { FormsModule } from '@angular/forms';
 import { AppUsageComponent } from './components/app-usage/app-usage.component';
@@ -22,7 +22,6 @@ import { ProductivityComponent } from './components/productivity/productivity.co
 import { EmployeelistComponent } from './components/employeelist/employeelist.component';
 import { EmpbackdropComponent } from './components/employeelist/empbackdrop/empbackdrop.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { OnlineempComponent } from './components/index/onlineemp/onlineemp.component';
 import { EmployeonliComponent } from './components/index/employeonli/employeonli.component';
 import { ActivitylogComponent } from './components/index/activitylog/activitylog.component';
@@ -44,7 +43,6 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TeamspageComponent } from './components/teamspage/teamspage.component';
 import { SnapshotbyidComponent } from './components/snapshotbyid/snapshotbyid.component';
 import { MonitoringComponent } from './components/monitoring/monitoring.component';
-import { Daterangepicker } from 'ng2-daterangepicker';
 import { DrpickerComponent } from './components/ui/drpicker/drpicker.component';
 import { DownloadagentComponent } from './components/downloadagent/downloadagent.component';
 import { LivetrackingComponent } from './components/livetracking/livetracking.component';
@@ -53,72 +51,62 @@ import { LivetrackingpageComponent } from './components/livetrackingpage/livetra
 import { PluckPipe } from './pluck.pipe';
 import { ViolationbackdropComponent } from './components/employeelist/violationbackdrop/violationbackdrop.component';
 import { NgSelectModule } from '@ng-select/ng-select';
-// import { NgOptionHighlightModule} from ''
-import { NgOptionHighlightModule } from '@ng-select/ng-option-highlight';
 import { AddviolationComponent } from './components/addviolation/addviolation.component';
+import { FilterPipe } from './filter.pipe';
 
 // localStorage.clear();
 
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    IndexComponent,
-    TopnavComponent,
-    SidenavbarComponent,
-    CardComponent,
-    TabelsComponent,
-    LoginpageComponent,
-    AppUsageComponent,
-    LoadingspinnerComponent,
-    LatestsnapshotComponent,
-    WebUsageComponent,
-    ViolationComponent,
-    LatestsnapshotpagesComponent,
-    ProductivityComponent,
-    EmployeelistComponent,
-    EmpbackdropComponent,
-    OnlineempComponent,
-    EmployeonliComponent,
-    ActivitylogComponent,
-    Loadingspinner2Component,
-    ProductivitygraphComponent,
-    AppusagegraphComponent,
-    WebusagegraphComponent,
-    ViolationgraphComponent,
-    ProductivitygraphpageComponent,
-    ViolationgraphpageComponent,
-    WebusagegrpahpageComponent,
-    AppusesgraphpageComponent,
-    CustomRangesComponent,
-    DepartementpageComponent,
-    TeamspageComponent,
-    SnapshotbyidComponent,
-    MonitoringComponent,
-    DrpickerComponent,
-    DownloadagentComponent,
-    LivetrackingComponent,
-    LivetrackingpageComponent,
-    PluckPipe,
-    ViolationbackdropComponent,
-    AddviolationComponent    
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    NgbModule,
-    Ng2SearchPipeModule,
-    // ChartsModule,
-    NgxDaterangepickerMd.forRoot(),
-    NgMultiSelectDropDownModule.forRoot(),
-    Daterangepicker,
-    SocketIoModule,
-    NgSelectModule,
-    NgOptionHighlightModule
-  ],
-  providers: [DatePipe],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        IndexComponent,
+        TopnavComponent,
+        SidenavbarComponent,
+        CardComponent,
+        TabelsComponent,
+        LoginpageComponent,
+        AppUsageComponent,
+        LoadingspinnerComponent,
+        LatestsnapshotComponent,
+        WebUsageComponent,
+        ViolationComponent,
+        LatestsnapshotpagesComponent,
+        ProductivityComponent,
+        EmployeelistComponent,
+        EmpbackdropComponent,
+        OnlineempComponent,
+        EmployeonliComponent,
+        ActivitylogComponent,
+        Loadingspinner2Component,
+        ProductivitygraphComponent,
+        AppusagegraphComponent,
+        WebusagegraphComponent,
+        ViolationgraphComponent,
+        ProductivitygraphpageComponent,
+        ViolationgraphpageComponent,
+        WebusagegrpahpageComponent,
+        AppusesgraphpageComponent,
+        CustomRangesComponent,
+        DepartementpageComponent,
+        TeamspageComponent,
+        SnapshotbyidComponent,
+        MonitoringComponent,
+        DrpickerComponent,
+        DownloadagentComponent,
+        LivetrackingComponent,
+        LivetrackingpageComponent,
+        PluckPipe,
+        ViolationbackdropComponent,
+        AddviolationComponent,
+        FilterPipe
+    ],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NgbModule,
+        // ChartsModule,
+        NgxDaterangepickerMd.forRoot(),
+        NgMultiSelectDropDownModule.forRoot(),
+        SocketIoModule,
+        NgSelectModule], providers: [DatePipe, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

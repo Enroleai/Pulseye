@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
-import * as $ from 'jquery';
+import $ from 'jquery';
 
-@Component({  
-  selector: 'app-topnav',
-  templateUrl: './topnav.component.html',
-  styleUrls: ['./topnav.component.css'],
-  providers: [SocketOne]
+@Component({
+    selector: 'app-topnav',
+    templateUrl: './topnav.component.html',
+    styleUrls: ['./topnav.component.css'],
+    providers: [SocketOne],
+    standalone: false
 })
 export class TopnavComponent implements OnInit {
   images = [700, 800, 807].map((n) => `https://picsum.photos/id/${n}/900/500`);

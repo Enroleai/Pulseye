@@ -1,60 +1,46 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import * as moment from 'moment';
-import { DaterangepickerComponent } from 'ng2-daterangepicker';
+import { Component, OnInit } from '@angular/core';
+import dayjs, { Dayjs } from 'dayjs';
 import { DatePipe } from '@angular/common';
 import { appservice } from '../../app.service';
 
 @Component({
-  selector: 'app-drpicker',
-  templateUrl: './drpicker.component.html',
-  styleUrls: ['./drpicker.component.css']
+    selector: 'app-drpicker',
+    templateUrl: './drpicker.component.html',
+    styleUrls: ['./drpicker.component.css'],
+    standalone: false
 })
 export class DrpickerComponent implements OnInit {
 
 
-  public daterange: any = {
-    start: Date.now(),
-    end: Date.now(),
-    label: ''
+  public selected: { start: Dayjs; end: Dayjs } = { start: dayjs(), end: dayjs() };
+  public daterange: { start: string; end: string } = {
+    start: dayjs().format('YYYY-MM-DD'),
+    end: dayjs().format('YYYY-MM-DD')
   };
-
-  @ViewChild(DaterangepickerComponent)
-  private picker!: DaterangepickerComponent;
-
-  public options: any = {
-    locale: { format: 'YYYY-MM-DD' },
-    alwaysShowCalendars: false,
-    ranges: {
-      'Yesterday': [moment().subtract(1, 'day'), moment()],
-      'Last week': [moment().subtract(1, 'week'), moment()],
-      'Last Month': [moment().subtract(1, 'month'), moment()],
-      'Last 3 Months': [moment().subtract(4, 'month'), moment()],
-      'Last 6 Months': [moment().subtract(6, 'month'), moment()],
-      'Last 12 Months': [moment().subtract(12, 'month'), moment()],
-    },
-  }
+  public locale = { format: 'YYYY-MM-DD', firstDay: 1 };
+  public ranges: Record<string, [Dayjs, Dayjs]> = {
+    Yesterday: [dayjs().subtract(1, 'day'), dayjs()],
+    'Last week': [dayjs().subtract(1, 'week'), dayjs()],
+    'Last Month': [dayjs().subtract(1, 'month'), dayjs()],
+    'Last 3 Months': [dayjs().subtract(3, 'month'), dayjs()],
+    'Last 6 Months': [dayjs().subtract(6, 'month'), dayjs()],
+    'Last 12 Months': [dayjs().subtract(12, 'month'), dayjs()]
+  };
 
   constructor(private service: appservice, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
 
   }
-  public selectedDate(value: any) {
-    let enddate: any;
-    let startdate: any;
-    enddate = this.datepipe.transform(value.end._d, 'yyyy-MM-dd')
-    startdate = this.datepipe.transform(value.start._d, 'yyyy-MM-dd')
-    console.log(`${startdate} and ${enddate}`)
-    let rangedate: object = { startdate: startdate, enddate: enddate }
-    this.daterange['start'] = startdate;
-    this.daterange['end'] = enddate;
-    this.service.daterange.next(rangedate)
-    return
+  public selectedDate(value: { startDate?: Dayjs; endDate?: Dayjs; start?: Dayjs; end?: Dayjs }) {
+    const start = value.startDate || value.start || this.selected.start;
+    const end = value.endDate || value.end || this.selected.end;
+    const startdate = this.datepipe.transform(start.toDate(), 'yyyy-MM-dd') || '';
+    const enddate = this.datepipe.transform(end.toDate(), 'yyyy-MM-dd') || '';
+    this.daterange = { start: startdate, end: enddate };
+    this.service.daterange.next({ startdate, enddate });
   }
 
-  public applyDate(e: any) {
-    console.log(e)
-
-  }
+  public applyDate(): void {}
 
 }

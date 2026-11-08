@@ -6,10 +6,11 @@ import { appservice } from '../app.service';
 
 const PeerClient: any = (Peer as any).default || Peer;
 @Component({
-  selector: 'app-livetracking',
-  templateUrl: './livetracking.component.html',
-  styleUrls: ['./livetracking.component.css'],
-  providers: [SocketOne]
+    selector: 'app-livetracking',
+    templateUrl: './livetracking.component.html',
+    styleUrls: ['./livetracking.component.css'],
+    providers: [SocketOne],
+    standalone: false
 })
 export class LivetrackingComponent implements OnInit, OnDestroy {
   // @ViewChild('video') el!: ElementRef;

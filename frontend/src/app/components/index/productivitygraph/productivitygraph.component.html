@@ -1,12 +1,16 @@
 
 <app-card>
-    <div *ngIf="loading">
-        <app-loadingspinner2></app-loadingspinner2>    
+    <div *ngIf="loading" class="report-state report-state-loading">
+        <app-loadingspinner2></app-loadingspinner2>
+        <span>Loading productivity data…</span>
     </div>
     <h1 class="h5 dashheadding">Productivity</h1>
-    <div class="graph">
+    <div *ngIf="!loading && !productivityvalue.length" class="report-state">
+        <strong>No productivity data</strong>
+        <span>There is no activity for the selected period.</span>
+    </div>
+    <div *ngIf="!loading && productivityvalue.length" class="graph">
         <canvas id="myChart"></canvas>
     </div>
 </app-card>
-
 

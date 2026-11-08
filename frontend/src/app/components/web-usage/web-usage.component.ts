@@ -4,11 +4,12 @@ import { Component, OnInit } from '@angular/core';
 import * as XLSX from 'xlsx'
 import { DatePipe } from '@angular/common';
 import { appservice } from '../app.service';
-import * as moment from 'moment';
+import moment from 'moment';
 @Component({
-  selector: 'app-web-usage',
-  templateUrl: './web-usage.component.html',
-  styleUrls: ['./web-usage.component.css']
+    selector: 'app-web-usage',
+    templateUrl: './web-usage.component.html',
+    styleUrls: ['./web-usage.component.css'],
+    standalone: false
 })
 export class WebUsageComponent implements OnInit {
   latestappdata: any = []

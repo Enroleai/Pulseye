@@ -1,15 +1,16 @@
 import { Chart } from 'chart.js';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { appservice } from '../../app.service';
 import { DatePipe } from '@angular/common';
 // import {Chart}
 
 @Component({
-  selector: 'app-webusagegrpahpage',
-  templateUrl: './webusagegrpahpage.component.html',
-  styleUrls: ['./webusagegrpahpage.component.css']
+    selector: 'app-webusagegrpahpage',
+    templateUrl: './webusagegrpahpage.component.html',
+    styleUrls: ['./webusagegrpahpage.component.css'],
+    standalone: false
 })
 export class WebusagegrpahpageComponent implements OnInit {
   loading: boolean = true
@@ -58,7 +59,7 @@ export class WebusagegrpahpageComponent implements OnInit {
           datasets: [
             {
               label: "",
-              backgroundColor: ["#f5997b", "#7bbaee", "#f3d16b", "#64b5ae", "#91c794"],
+              backgroundColor: ["#4f7fd1", "#7bbaee", "#f59e0b", "#86a9e8", "#91c794"],
               data: this.webUsescount,
               barPercentage: 0.2,
               // borderWidth: 0

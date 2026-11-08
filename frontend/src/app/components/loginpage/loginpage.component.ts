@@ -5,9 +5,10 @@ import { Router } from '@angular/router';
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-loginpage',
-  templateUrl: './loginpage.component.html',
-  styleUrls: ['./loginpage.component.css']
+    selector: 'app-loginpage',
+    templateUrl: './loginpage.component.html',
+    styleUrls: ['./loginpage.component.css'],
+    standalone: false
 })
 export class LoginpageComponent implements OnInit {
   @ViewChild('login') login: NgForm | undefined;
@@ -31,13 +32,22 @@ export class LoginpageComponent implements OnInit {
  
   }
 
-  loginpage() {
-    let url = this.service.url;
-    let user = {
-      email: this.login?.value.email,
-      password: this.login?.value.password
+  loginpage(event?: Event) {
+    const form = event?.target as HTMLFormElement | undefined;
+    const values = form ? new FormData(form) : null;
+    const email = String(values?.get('email') || this.login?.value.email || '').trim();
+    const password = String(values?.get('password') || this.login?.value.password || '');
+
+    this.error = false;
+    this.message = '';
+    if (!email || !password) {
+      this.error = true;
+      this.message = 'Enter your email and password to continue.';
+      return;
     }
-    console.log(user);
+
+    const url = this.service.url;
+    const user = { email, password };
 
     fetch(`${url}/api/login/managerLogin`, {
       method: "post",
@@ -48,29 +58,23 @@ export class LoginpageComponent implements OnInit {
 
       //make sure to serialize your JSON body
       body: JSON.stringify({ user }),
-    }).then((a) => {
-      if (a.status !== 200) {
-        return
-      };
+    }).then(async (a) => {
+      const response = await a.json().catch(() => ({}));
+      if (!a.ok) {
+        throw new Error(response?.msg || 'Invalid email or password.');
+      }
       if (a.headers.get('x-auth-token')) {
         this.token = a.headers.get('x-auth-token')
-        // console.log(this.token)
         localStorage.setItem('x-auth-token', JSON.stringify(a.headers.get('x-auth-token')))
-        // this.service.logintoken.next(this.token)
         this.router.navigate(['/index'])
       }
-      return a.json(); // call the json method on the response to get JSON
-    }).then((response) => {
-      console.log('AAAAAAAAAAAAAAAAAAAAAAAA', response)
-      if (response.status === false) {
-        this.error = !this.error
-        this.message = response.msg;
-        return;
+      if (response?.status === false) {
+        throw new Error(response.msg || 'Invalid email or password.');
       }
-      console.log(response);
+      return response;
     }).catch((error) => {
-      console.log('this', error)
-      if (error) this.message = 'something went wrong '
+      this.error = true;
+      this.message = error?.message || 'Unable to sign in. Please try again.';
     });
 
 

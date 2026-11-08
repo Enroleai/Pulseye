@@ -1,160 +1,69 @@
 <app-topnav></app-topnav>
 <app-sidenavbar></app-sidenavbar>
-<div class="main-container">
-  <div class="container-fluid">
 
-<div class="row mob-add" >
-
-<div class="col-md-6 p-0">
-  <div class="banner-add">
-  <ngb-carousel
-  [showNavigationArrows]="true"
-  style="height: 60px;"
-  class="mr-3 ml-5"
->
-  <!-- <ng-template ngbSlide>
-  <div class="text-center py-3">hello world</div>
-</ng-template> -->
-  <ng-template ngbSlide>
-    <div class="text-center py-3">
-      Pulseye employee monitoring tool
-      <a
-        routerLink="/index"
-        style="
-          background-color: #123998;
-          color: aliceblue;
-          border-radius: 8px;
-        "
-        class="mx-2 px-2 py-1"
-      >
-        Dashboard
-      </a>
-    </div>
-  </ng-template>
-  <ng-template ngbSlide>
-    <div class="text-center py-3">
-      monitors violation data of employees
-      <a
-        routerLink="/latestsnapshots"
-        style="
-          background-color: #123998;
-          color: aliceblue;
-          border-radius: 8px;
-        "
-        class="mx-2 px-2 py-1"
-      >
-        Snapshots
-      </a>
-    </div>
-  </ng-template>
-</ngb-carousel>
-</div>
-</div>
-<div  class="col-md-6 p-0">
-  <div class="banner-add">
-  <ngb-carousel [showNavigationArrows]="true" style="height: 60px;">
-    <!-- <ng-template ngbSlide>
-  <div class="text-center py-3">hello world</div>
-</ng-template> -->
-    <ng-template ngbSlide>
-      <div class="text-center py-3">
-        Pulseye employee monitoring tool
-        <a
-          routerLink="/index"
-          style="
-            background-color: #123998;
-            color: aliceblue;
-            border-radius: 8px;
-          "
-          class="mx-2 px-2 py-1"
-        >
-          Dashboard
-        </a>
+<main class="main-container" aria-labelledby="dashboard-title">
+  <div class="dashboard-shell">
+    <section class="dashboard-heading">
+      <div>
+        <p class="eyebrow">PULSEYE MONITORING</p>
+        <h1 id="dashboard-title">Operations dashboard</h1>
+        <p class="dashboard-subtitle">A clear view of productivity, activity, and employee health across your workspace.</p>
       </div>
-    </ng-template>
-    <ng-template ngbSlide>
-      <div class="text-center py-3">
-        monitors violation data of employees
-        <a
-          routerLink="/latestsnapshots"
-          style="
-            background-color: #123998;
-            color: aliceblue;
-            border-radius: 8px;
-          "
-          class="mx-2 px-2 py-1"
-        >
-          Snapshots
-        </a>
+      <div class="dashboard-heading-badge" aria-label="Dashboard status">
+        <span class="pulse-dot"></span>
+        Live workspace
       </div>
-    </ng-template>
-  </ngb-carousel>
-</div>
-</div>
+    </section>
 
-</div>
+    <section class="dashboard-announcement" aria-label="Pulseye updates">
+      <div class="announcement-icon"><i class="fa fa-bolt" aria-hidden="true"></i></div>
+      <div class="announcement-copy">
+        <strong>Pulseye employee monitoring</strong>
+        <span>Track productivity signals and policy activity from one place.</span>
+      </div>
+      <a routerLink="/latestsnapshots" class="announcement-link">View snapshots <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+    </section>
 
-
-    <div class="row">
-      <div class="col-lg-6 col-12">
-        <div class="custom-datepicker">
-          <div id="reportrange">
-            <span></span
-            ><!-- <b class="caret"></b> -->
-            <app-drpicker style="cursor: pointer"></app-drpicker>
-            <!-- <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> -->
-          </div>
+    <section class="dashboard-controls" aria-label="Dashboard controls">
+      <div class="date-control">
+        <span class="control-label">Reporting period</span>
+        <div id="reportrange">
+          <app-drpicker style="cursor: pointer"></app-drpicker>
         </div>
       </div>
-      <div class="col-lg-6 col-12 d-flex my-2 status-picker">
-        <div class="statuscontainer mx-2 text-success h5 font-weight-normal">
-          <div class="status-online" (click)="scroll()" style="cursor: pointer;color: #109015;">
-            Online<span class="status-online-count">
-              {{ online }}
-            </span>
-          </div>
+      <div class="status-picker" aria-label="Employee availability">
+        <button type="button" class="status-card status-card-online" (click)="scroll()">
+          <span class="status-label"><span class="status-dot status-dot-blue"></span>Online</span>
+          <strong>{{ online }}</strong>
+        </button>
+        <div class="status-card status-card-offline">
+          <span class="status-label"><span class="status-dot status-dot-slate"></span>Offline</span>
+          <strong>{{ offline }}</strong>
         </div>
-        <div class="statuscontainer mx-1 text-dark h5 font-weight-normal">
-          <div class="status-offline">
-            offline<span class="status-online-count">
-              {{ offline }}
-            </span>
-          </div>
-        </div>
-        <div class="statuscontainer mx-1 text-warning h5 font-weight-normal">
-          <div class="status-away">
-            Away<span class="status-online-count"> 0 </span>
-          </div>
+        <div class="status-card status-card-away">
+          <span class="status-label"><span class="status-dot status-dot-yellow"></span>Away</span>
+          <strong>0</strong>
         </div>
       </div>
-    </div>
-    <div class="row mb-20">
-      <div class="col-lg-6 col-12">
-        <app-productivitygraph></app-productivitygraph>
-      </div>
-      <div class="col-lg-6 col-12">
-        <app-violationgraph></app-violationgraph>
-      </div>
-    </div>
-    <div class="row mb-20">
-      <div class="col-lg-6 col-12">
-        <app-latestsnapshot></app-latestsnapshot>
-      </div>
-      <div class="col-lg-6 col-12">
-        <app-activitylog></app-activitylog>
-      </div>
-    </div>
-    <div class="row mb-20">
-      <div class="col-lg-6 col-12">
-        <app-appusagegraph></app-appusagegraph>
-        <!-- <app-dashinfogrpgh></app-dashinfogrpgh> -->
-      </div>
-      <div class="col-lg-6 col-12">
-        <app-webusagegraph></app-webusagegraph>
-      </div>
-    </div>
-    <div class="col-12 p-0">
-      <app-onlineemp id="last-card"></app-onlineemp>
-    </div>
+    </section>
+
+    <section class="dashboard-grid dashboard-grid-primary" aria-label="Primary analytics">
+      <div class="dashboard-chart-shell"><app-productivitygraph></app-productivitygraph></div>
+      <div class="dashboard-chart-shell"><app-violationgraph></app-violationgraph></div>
+    </section>
+
+    <section class="dashboard-grid" aria-label="Activity overview">
+      <div class="dashboard-chart-shell"><app-latestsnapshot></app-latestsnapshot></div>
+      <div class="dashboard-chart-shell"><app-activitylog></app-activitylog></div>
+    </section>
+
+    <section class="dashboard-grid" aria-label="Usage analytics">
+      <div class="dashboard-chart-shell"><app-appusagegraph></app-appusagegraph></div>
+      <div class="dashboard-chart-shell"><app-webusagegraph></app-webusagegraph></div>
+    </section>
+
+    <section class="dashboard-wide-card" id="last-card" aria-label="Online employees">
+      <app-onlineemp></app-onlineemp>
+    </section>
   </div>
-</div>
+</main>

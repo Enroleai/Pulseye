@@ -6,9 +6,10 @@ import { map } from 'rxjs/operators';
 import { Latestsnapshot } from 'src/app/models/latestsnapshot.model';
 
 @Component({
-  selector: 'app-latestsnapshot',
-  templateUrl: './latestsnapshot.component.html',
-  styleUrls: ['./latestsnapshot.component.css']
+    selector: 'app-latestsnapshot',
+    templateUrl: './latestsnapshot.component.html',
+    styleUrls: ['./latestsnapshot.component.css'],
+    standalone: false
 })
 export class LatestsnapshotComponent implements OnInit {
   snapshotdata: Latestsnapshot[] = []

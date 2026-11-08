@@ -1,7 +1,12 @@
-<div *ngIf="loading">
+<div *ngIf="loading" class="report-state report-state-loading">
     <app-loadingspinner2></app-loadingspinner2>
+    <span>Loading app usage data…</span>
 </div>
 
-<div style="width: 100%;height: 100%;">
+<div *ngIf="!loading && !appUsaesarr1.length" class="report-state">
+    <strong>No app usage data</strong>
+    <span>There is no application activity for the selected period.</span>
+</div>
+<div *ngIf="!loading && appUsaesarr1.length" style="width: 100%;height: 100%;">
     <canvas id="lineChart" width="800" height="200"></canvas>
 </div>

@@ -1,13 +1,15 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, OnInit, } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, } from '@angular/core';
 import { Chart } from 'chart.js'
-import * as moment from 'moment';
+import moment from 'moment';
 import { appservice } from '../../app.service';
 import { DatePipe } from '@angular/common';
+import { timeout } from 'rxjs/operators';
 @Component({
-  selector: 'app-productivitygraph',
-  templateUrl: './productivitygraph.component.html',
-  styleUrls: ['./productivitygraph.component.css']
+    selector: 'app-productivitygraph',
+    templateUrl: './productivitygraph.component.html',
+    styleUrls: ['./productivitygraph.component.css'],
+    standalone: false
 })
 export class ProductivitygraphComponent implements OnInit {
   productivityvalue: any[] = [];
@@ -19,7 +21,7 @@ export class ProductivitygraphComponent implements OnInit {
   loading: boolean = true;
   myChart!: Chart;
 
-  constructor(private http: HttpClient, private service: appservice, private datepipe: DatePipe) { }
+  constructor(private http: HttpClient, private service: appservice, private datepipe: DatePipe, private cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     let date: any = moment()
@@ -40,6 +42,9 @@ export class ProductivitygraphComponent implements OnInit {
     this.productivitydatafetch(this.startdate, this.enddate)
   }
   productivitydatafetch(startdate: any, enddate: any) {
+    this.loading = false;
+    this.cdr.detectChanges();
+    setTimeout(() => { if (this.loading) { this.loading = false; this.cdr.detectChanges(); } }, 8000);
     let url = this.service.url;
     let token = localStorage.getItem('x-auth-token')
     let t = JSON.parse(`${token}`)
@@ -47,7 +52,7 @@ export class ProductivitygraphComponent implements OnInit {
       headers: new HttpHeaders({
         'x-auth-token': t
       })
-    }).subscribe((res) => {
+    }).pipe(timeout(8000)).subscribe((res) => {
       if (this.myChart) {
         this.myChart.destroy()
       }
@@ -63,6 +68,7 @@ export class ProductivitygraphComponent implements OnInit {
         this.violationvalue.push(viloation)
         this.monthvalue.push(month)  // idletimevalue.push(value.data.idletime
       }
+      if (!this.productivityvalue.length) return;
       this.myChart = new Chart("myChart", {
         type: 'bar',
         data: {
@@ -70,8 +76,9 @@ export class ProductivitygraphComponent implements OnInit {
           datasets: [
             {
               label: "Productivity",
-              backgroundColor: "#91c794",
+              backgroundColor: "#f59e0b",
               data: this.productivityvalue,
+              barThickness: 15,
               barPercentage: 0.2,
 
             },
@@ -79,6 +86,7 @@ export class ProductivitygraphComponent implements OnInit {
               label: "Violation",
               backgroundColor: "#8993ca",
               data: this.violationvalue,
+              barThickness: 15,
               barPercentage: 0.2,
 
 
@@ -87,6 +95,7 @@ export class ProductivitygraphComponent implements OnInit {
               label: " Ideal Time",
               backgroundColor: "#66cdda",
               data: this.idletimevalue,
+              barThickness: 15,
               barPercentage: 0.2,
 
             }
@@ -141,6 +150,8 @@ export class ProductivitygraphComponent implements OnInit {
           }
         }
       });
+    }, () => {
+      this.loading = false;
     })
 
   }

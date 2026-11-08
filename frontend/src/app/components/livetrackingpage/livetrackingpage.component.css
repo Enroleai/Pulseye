@@ -1,26 +1,38 @@
-.blink {
-  position: absolute;
-  right: 9px;
-  /* background-color: rgb(117, 223, 117); */
-  text-align: center;
-  width: 30px;
-  border-radius: 3px;
-  padding: 0px 3px;
-  top: 8px;
-  margin-right: 3rem;
+:host { display: block; min-height: 100vh; }
+
+.live-page {
+  min-height: 100vh;
+  background: #071942;
+  color: #fff;
 }
-.blink span {
-  font-size: 24px;
-  /* font-family: cursive; */
-  color: red;
-  animation: blink 1s linear infinite;
+
+.live-header {
+  display: flex;
+  min-height: 78px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 2rem;
+  background: #0b236f;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
 }
-@keyframes blink {
-  0% {
-    opacity: 0;
-  }
-  /* 50%{opacity: .5;} */
-  100% {
-    opacity: 1;
-  }
+
+.live-meta { display: flex; flex-wrap: wrap; gap: 1.75rem; align-items: center; }
+.live-meta > div { display: flex; flex-direction: column; gap: 0.2rem; }
+.meta-label { color: #a9bce8; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.live-meta strong { color: #fff; font-size: 0.86rem; font-weight: 600; }
+.live-pill { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.45rem 0.75rem; border-radius: 999px; background: rgba(245, 158, 11, 0.16); color: #fbbf24; font-size: 0.78rem; font-weight: 800; text-transform: uppercase; }
+.live-pill span { width: 7px; height: 7px; border-radius: 50%; background: #f59e0b; box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.14); }
+.live-content { display: grid; min-height: calc(100vh - 78px); place-items: center; padding: 2rem; }
+.activity-image { display: block; width: 100%; max-height: calc(100vh - 118px); object-fit: contain; }
+.live-empty { width: min(520px, 100%); padding: 3rem 2rem; border: 1px solid rgba(151, 178, 235, 0.16); border-radius: 18px; background: rgba(255, 255, 255, 0.06); text-align: center; }
+.empty-icon { display: grid; width: 54px; height: 54px; margin: 0 auto 1rem; place-items: center; border-radius: 16px; background: rgba(245, 158, 11, 0.16); color: #f59e0b; font-size: 1.3rem; }
+.live-empty h1 { margin: 0 0 0.5rem; font-size: 1.35rem; font-weight: 800; }
+.live-empty p { max-width: 380px; margin: 0 auto; color: #a9bce8; line-height: 1.6; }
+
+@media (max-width: 700px) {
+  .live-header { align-items: flex-start; padding: 1rem; }
+  .live-meta { gap: 0.75rem 1rem; }
+  .live-pill { flex: 0 0 auto; }
+  .live-content { padding: 1rem; }
 }

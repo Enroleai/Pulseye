@@ -3,12 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { appservice } from '../../app.service';
-import * as moment from 'moment';
+import moment from 'moment';
+import { timeout } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-appusesgraphpage',
-  templateUrl: './appusesgraphpage.component.html',
-  styleUrls: ['./appusesgraphpage.component.css']
+    selector: 'app-appusesgraphpage',
+    templateUrl: './appusesgraphpage.component.html',
+    styleUrls: ['./appusesgraphpage.component.css'],
+    standalone: false
 })
 export class AppusesgraphpageComponent implements OnInit {
 
@@ -39,12 +41,12 @@ export class AppusesgraphpageComponent implements OnInit {
     let url = this.service.url;
     let token = localStorage.getItem('x-auth-token')
     let t = JSON.parse(`${token}`)
-    this.http.get<any>(`${url}/api/users/getWebAppUses?startDate=2020-12-29&endDate=2021-01-28`, {
+    this.http.get<any>(`${url}/api/users/getWebAppUses?startDate=${startdate}&endDate=${enddate}`, {
       headers: new HttpHeaders({
         'x-auth-token': t
       })
-    }).subscribe((res) => {
-      this.loading = !this.loading
+    }).pipe(timeout(8000)).subscribe((res) => {
+      this.loading = false
       for (let value of res['appUses']) {
         this.appUsaesarr1.push(value['app_name']);
         this.appusasespercentage1.push(value['usagepercent']);
@@ -66,6 +68,7 @@ export class AppusesgraphpageComponent implements OnInit {
           }
         }
       });
+      if (!this.appUsaesarr1.length) return;
       // var ctx = document.getElementById("lineChart");
       new Chart("lineChart", {
         type: 'bar',
@@ -75,7 +78,7 @@ export class AppusesgraphpageComponent implements OnInit {
           datasets: [
             {
               label: "",
-              backgroundColor: ["#f5997b", "#7bbaee", "#f3d16b", "#64b5ae", "#91c794"],
+              backgroundColor: ["#4f7fd1", "#7bbaee", "#f59e0b", "#86a9e8", "#91c794"],
               data: this.appusasespercentage1,
               borderWidth: 0
             }
@@ -116,6 +119,8 @@ export class AppusesgraphpageComponent implements OnInit {
         }
       });
 
+    }, () => {
+      this.loading = false;
     })
 
   }

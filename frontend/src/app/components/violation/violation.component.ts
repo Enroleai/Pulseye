@@ -1,15 +1,16 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import * as moment from 'moment';
+import moment from 'moment';
 import { Appusage } from 'src/app/models/appusage.model';
 import * as XLSX from 'xlsx'
 import { appservice } from '../app.service';
 
 @Component({
-  selector: 'app-violation',
-  templateUrl: './violation.component.html',
-  styleUrls: ['./violation.component.css']
+    selector: 'app-violation',
+    templateUrl: './violation.component.html',
+    styleUrls: ['./violation.component.css'],
+    standalone: false
 })
 export class ViolationComponent implements OnInit {
   appusagedata: Appusage[] = []

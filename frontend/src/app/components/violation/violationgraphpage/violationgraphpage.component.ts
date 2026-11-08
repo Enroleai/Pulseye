@@ -3,13 +3,14 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { appservice } from '../../app.service';
 import { DatePipe } from '@angular/common';
-import * as moment from 'moment';
+import moment from 'moment';
 // import {Chart}
 
 @Component({
-  selector: 'app-violationgraphpage',
-  templateUrl: './violationgraphpage.component.html',
-  styleUrls: ['./violationgraphpage.component.css']
+    selector: 'app-violationgraphpage',
+    templateUrl: './violationgraphpage.component.html',
+    styleUrls: ['./violationgraphpage.component.css'],
+    standalone: false
 })
 export class ViolationgraphpageComponent implements OnInit {
   usagepercentvalue: any[] = [];
@@ -61,7 +62,7 @@ export class ViolationgraphpageComponent implements OnInit {
             datasets: [{
               label: 'Violation',
               data: this.usagepercentvalue,
-              backgroundColor: ["#f5997b", "#7bbaee", "#f3d16b", "#64b5ae", "#91c794"],
+              backgroundColor: ["#4f7fd1", "#7bbaee", "#f59e0b", "#86a9e8", "#91c794"],
               barPercentage: 0.2
             }]
           },
