@@ -1,0 +1,278 @@
+name: Pulseye production
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pulseye-production
+  cancel-in-progress: false
+
+env:
+  EXPECTED_HOST: ec2-43-204-141-131.ap-south-1.compute.amazonaws.com
+  EXPECTED_USER: ubuntu
+
+jobs:
+  verify-infrastructure:
+    name: Verify native application infrastructure and readiness
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      application_present: ${{ steps.source.outputs.application_present }}
+    steps:
+      - name: Check out exact source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7, immutable pin
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Detect the future source-owned native build entrypoint
+        id: source
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          [[ -f scripts/deploy-ec2.sh && ! -L scripts/deploy-ec2.sh ]] || {
+            echo 'The checked-in deployment script is missing or unsafe.' >&2
+            exit 1
+          }
+          # No stack, runtime, manifest, application or placeholder is invented.
+          # Future scripts/build-production.sh must build/test and populate release/,
+          # including native runtime dependencies and deployment/start-production.sh.
+          if [[ -f scripts/build-production.sh && ! -L scripts/build-production.sh ]]; then
+            echo 'application_present=true' >> "$GITHUB_OUTPUT"
+          elif [[ -e scripts/build-production.sh || -L scripts/build-production.sh ]]; then
+            echo 'Build entrypoint must be a regular, non-symlink source file.' >&2
+            exit 1
+          else
+            echo 'application_present=false' >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify the authorized native app host using pinned SSH
+        shell: bash
+        env:
+          SSH_HOST: ${{ secrets.PULSEYE_EC2_HOST }}
+          SSH_USER: ${{ secrets.PULSEYE_EC2_USER }}
+          SSH_KEY: ${{ secrets.PULSEYE_EC2_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.PULSEYE_EC2_KNOWN_HOSTS }}
+          APPLICATION_PRESENT: ${{ steps.source.outputs.application_present }}
+        run: |
+          set -Eeuo pipefail
+          umask 077
+          [[ "$SSH_HOST" == "$EXPECTED_HOST" && "$SSH_USER" == "$EXPECTED_USER" ]] || {
+            echo 'Set the SSH host and user secrets to the authorized application hostname and ubuntu.' >&2
+            exit 1
+          }
+          [[ -n "$SSH_KEY" && -n "$SSH_KNOWN_HOSTS" ]] || {
+            echo 'Missing app SSH private key or independently pinned known_hosts secret.' >&2
+            exit 1
+          }
+          ssh_dir=$(mktemp -d "$RUNNER_TEMP/pulseye-ssh.XXXXXX")
+          trap 'rm -f "$ssh_dir/key" "$ssh_dir/known_hosts"; rmdir "$ssh_dir"' EXIT
+          printf '%s\n' "$SSH_KEY" > "$ssh_dir/key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          unset SSH_KEY SSH_KNOWN_HOSTS
+          chmod 600 "$ssh_dir/key" "$ssh_dir/known_hosts"
+          ssh-keygen -F "$EXPECTED_HOST" -f "$ssh_dir/known_hosts" >/dev/null || {
+            echo 'Pinned known_hosts must contain the exact application hostname.' >&2
+            exit 1
+          }
+          ssh_args=(-F /dev/null -i "$ssh_dir/key" -o IdentitiesOnly=yes -o BatchMode=yes
+            -o StrictHostKeyChecking=yes -o "UserKnownHostsFile=$ssh_dir/known_hosts"
+            -o GlobalKnownHostsFile=/dev/null -o UpdateHostKeys=no -o ConnectTimeout=15
+            -o ServerAliveInterval=15 -o ServerAliveCountMax=3 -o LogLevel=ERROR)
+          mode='preflight'
+          if [[ "$APPLICATION_PRESENT" == true ]]; then mode='preflight ready'; fi
+          ssh "${ssh_args[@]}" "$SSH_USER@$SSH_HOST" "sudo -n bash -s -- $mode" < scripts/deploy-ec2.sh
+          if [[ "$APPLICATION_PRESENT" == false ]]; then
+            {
+              echo '### infrastructure verified/application source pending'
+              echo ''
+              echo 'The authorized instance, IMDSv2 identity, Nginx, systemd service scaffold and protected runtime/release paths passed preflight.'
+              echo 'No scripts/build-production.sh is present. Native build and application deployment are skipped; no production application or S3 access is claimed.'
+            } >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo 'Native infrastructure and operator-controlled runtime readiness passed; source-owned build may proceed.' >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  deploy-application:
+    name: Build and activate native application
+    needs: verify-infrastructure
+    if: needs.verify-infrastructure.outputs.application_present == 'true' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    steps:
+      - name: Check out the same exact source revision
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7, immutable pin
+        with:
+          persist-credentials: false
+          fetch-depth: 1
+
+      - name: Recheck runtime approval before building and prepare pinned SSH
+        shell: bash
+        env:
+          SSH_HOST: ${{ secrets.PULSEYE_EC2_HOST }}
+          SSH_USER: ${{ secrets.PULSEYE_EC2_USER }}
+          SSH_KEY: ${{ secrets.PULSEYE_EC2_SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.PULSEYE_EC2_KNOWN_HOSTS }}
+        run: |
+          set -Eeuo pipefail
+          umask 077
+          [[ "$SSH_HOST" == "$EXPECTED_HOST" && "$SSH_USER" == "$EXPECTED_USER" ]] || {
+            echo 'SSH destination is not the authorized application host.' >&2
+            exit 1
+          }
+          [[ -n "$SSH_KEY" && -n "$SSH_KNOWN_HOSTS" ]] || {
+            echo 'Application SSH configuration is incomplete.' >&2
+            exit 1
+          }
+          ssh_dir=$(mktemp -d "$RUNNER_TEMP/pulseye-ssh.XXXXXX")
+          echo "PULSEYE_SSH_DIR=$ssh_dir" >> "$GITHUB_ENV"
+          printf '%s\n' "$SSH_KEY" > "$ssh_dir/key"
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > "$ssh_dir/known_hosts"
+          unset SSH_KEY SSH_KNOWN_HOSTS
+          chmod 600 "$ssh_dir/key" "$ssh_dir/known_hosts"
+          ssh-keygen -F "$EXPECTED_HOST" -f "$ssh_dir/known_hosts" >/dev/null || {
+            echo 'Pinned known_hosts lacks the exact application hostname.' >&2
+            exit 1
+          }
+          cat > "$ssh_dir/config" <<EOF
+          Host pulseye-production
+            HostName $EXPECTED_HOST
+            User $EXPECTED_USER
+            IdentityFile $ssh_dir/key
+            IdentitiesOnly yes
+            BatchMode yes
+            StrictHostKeyChecking yes
+            UserKnownHostsFile $ssh_dir/known_hosts
+            GlobalKnownHostsFile /dev/null
+            UpdateHostKeys no
+            ConnectTimeout 15
+            ServerAliveInterval 15
+            ServerAliveCountMax 3
+            LogLevel ERROR
+          EOF
+          chmod 600 "$ssh_dir/config"
+          ssh -F "$ssh_dir/config" pulseye-production 'sudo -n bash -s -- preflight ready' < scripts/deploy-ec2.sh
+
+      - name: Run the future source-owned native production build
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          [[ "$GITHUB_SHA" =~ ^[0-9a-f]{40}$ && -f scripts/build-production.sh && ! -L scripts/build-production.sh ]] || exit 1
+          # This trusted source script owns stack-specific build/tests and native
+          # dependency packaging. It must not run production migrations or need
+          # production secrets. The start script must honor PORT and PULSEYE_CANARY=1
+          # (no migrations or background side effects). The operator must approve the actual
+          # EC2 runtime before setting DEPLOYMENT_READY=1; this job installs none.
+          bash scripts/build-production.sh
+          [[ -d release && ! -L release && -f release/deployment/start-production.sh && ! -L release/deployment/start-production.sh && -x release/deployment/start-production.sh ]] || {
+            echo 'Build must produce release/ with executable deployment/start-production.sh and complete runtime dependencies.' >&2
+            exit 1
+          }
+
+      - name: Validate and archive only native release output
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          umask 077
+          expanded_bytes=$(python3 - <<'PY'
+          import os, pathlib, stat
+          root = pathlib.Path('release')
+          forbidden = {'.git', '.github', '.ssh', '.aws', '.env', 'production.env', 'deploy.conf', 'credentials', 'secrets', 'id_rsa', 'id_ed25519', '.pulseye-release'}
+          total = 0
+          for directory, dirs, files in os.walk(root, followlinks=False):
+              for name in dirs + files:
+                  path = pathlib.Path(directory) / name
+                  metadata = path.lstat()
+                  if name in forbidden or name.startswith('.env') or name.endswith(('.pem', '.key', '.p12', '.pfx')):
+                      raise SystemExit('Credential/control path forbidden in release output.')
+                  if not (stat.S_ISREG(metadata.st_mode) or stat.S_ISDIR(metadata.st_mode)) or metadata.st_mode & 0o7000:
+                      raise SystemExit('Release output may contain only safe regular files/directories; no links or special files.')
+                  if stat.S_ISREG(metadata.st_mode): total += metadata.st_size
+          if not 0 < total <= 2147483648:
+              raise SystemExit('Expanded release must be nonempty and no larger than 2 GiB.')
+          print(total)
+          PY
+          )
+          artifact_dir=$(mktemp -d "$RUNNER_TEMP/pulseye-artifact.XXXXXX")
+          echo "PULSEYE_ARTIFACT_DIR=$artifact_dir" >> "$GITHUB_ENV"
+          tar --format=posix --sort=name --mtime='@0' --owner=0 --group=0 --numeric-owner \
+            --pax-option=delete=atime,delete=ctime -cf - release | gzip -n -1 > "$artifact_dir/release.tar.gz"
+          archive_bytes=$(stat -c '%s' "$artifact_dir/release.tar.gz")
+          (( archive_bytes > 0 && archive_bytes <= 1500000000 )) || {
+            echo 'Compressed archive exceeds 1,500,000,000 byte deployment limit.' >&2
+            exit 1
+          }
+          archive_sha=$(sha256sum "$artifact_dir/release.tar.gz"); archive_sha=${archive_sha%% *}
+          {
+            echo "PULSEYE_ARCHIVE_BYTES=$archive_bytes"
+            echo "PULSEYE_EXPANDED_BYTES=$expanded_bytes"
+            echo "PULSEYE_ARCHIVE_SHA=$archive_sha"
+          } >> "$GITHUB_ENV"
+
+      - name: Verify disk headroom before checksummed SCP transfer
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          ssh -F "$PULSEYE_SSH_DIR/config" pulseye-production \
+            "sudo -n bash -s -- diskcheck $PULSEYE_ARCHIVE_BYTES $PULSEYE_EXPANDED_BYTES" < scripts/deploy-ec2.sh
+          release_id="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          [[ "$release_id" =~ ^[0-9]{1,20}-[0-9]{1,6}$ ]] || exit 1
+          remote_dir=$(ssh -F "$PULSEYE_SSH_DIR/config" pulseye-production \
+            "umask 077; mktemp -d /tmp/pulseye-$GITHUB_SHA-$release_id.XXXXXX")
+          [[ "$remote_dir" =~ ^/tmp/pulseye-${GITHUB_SHA}-${release_id}\.[A-Za-z0-9]{6}$ ]] || {
+            echo 'Remote staging path is invalid; no artifact copied.' >&2
+            exit 1
+          }
+          echo "PULSEYE_REMOTE_DIR=$remote_dir" >> "$GITHUB_ENV"
+          scp -F "$PULSEYE_SSH_DIR/config" "$PULSEYE_ARTIFACT_DIR/release.tar.gz" \
+            "pulseye-production:$remote_dir/release.tar.gz"
+
+      - name: Native canary, atomic activation and automatic rollback
+        shell: bash
+        run: |
+          set -Eeuo pipefail
+          release_id="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+          ssh -F "$PULSEYE_SSH_DIR/config" pulseye-production \
+            "sudo -n bash -s -- deploy $GITHUB_SHA $PULSEYE_ARCHIVE_SHA $PULSEYE_ARCHIVE_BYTES $PULSEYE_EXPANDED_BYTES $release_id $PULSEYE_REMOTE_DIR/release.tar.gz" \
+            < scripts/deploy-ec2.sh
+          {
+            echo '### Production native application activation verified'
+            echo ''
+            echo "Commit: \`$GITHUB_SHA\`. Archive SHA-256: \`$PULSEYE_ARCHIVE_SHA\`."
+            echo 'Native canary HTTP health, promoted systemd service/upstream, and Nginx HTTP 200 checks passed on the authorized app instance.'
+            echo 'Current and one previous native release retained. No database migration or S3 access verification was performed.'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Clean only this run’s SSH material and staging files
+        if: always()
+        shell: bash
+        run: |
+          set -uo pipefail
+          cleanup_status=0
+          if [[ -n "${PULSEYE_REMOTE_DIR:-}" && -f "${PULSEYE_SSH_DIR:-}/config" ]]; then
+            release_id="$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT"
+            if [[ "$PULSEYE_REMOTE_DIR" =~ ^/tmp/pulseye-${GITHUB_SHA}-${release_id}\.[A-Za-z0-9]{6}$ ]]; then
+              ssh -F "$PULSEYE_SSH_DIR/config" pulseye-production \
+                "rm -f -- '$PULSEYE_REMOTE_DIR/release.tar.gz'; if test -d '$PULSEYE_REMOTE_DIR'; then rmdir -- '$PULSEYE_REMOTE_DIR'; fi" || cleanup_status=1
+            else
+              cleanup_status=1
+            fi
+          fi
+          if [[ "${PULSEYE_ARTIFACT_DIR:-}" == "$RUNNER_TEMP"/pulseye-artifact.* ]]; then
+            rm -f -- "$PULSEYE_ARTIFACT_DIR/release.tar.gz"
+            rmdir -- "$PULSEYE_ARTIFACT_DIR" 2>/dev/null || cleanup_status=1
+          fi
+          if [[ "${PULSEYE_SSH_DIR:-}" == "$RUNNER_TEMP"/pulseye-ssh.* ]]; then
+            rm -f -- "$PULSEYE_SSH_DIR/key" "$PULSEYE_SSH_DIR/known_hosts" "$PULSEYE_SSH_DIR/config"
+            rmdir -- "$PULSEYE_SSH_DIR" 2>/dev/null || cleanup_status=1
+          fi
+          if (( cleanup_status != 0 )); then
+            echo 'Run-specific staging cleanup needs attention; no unrelated resources removed.' >&2
+            exit 1
+          fi
