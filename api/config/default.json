@@ -1,12 +1,17 @@
 {
   "jwtPrivateKey": "",
   "mongodbUri": "",
-  "corsOrigin": "https://app.pulseye.in",
+  "corsOrigin": "https://app.pulseye.co.uk",
   "aws": {
     "accessKeyId": "",
     "secretAccessKey": "",
-    "endpoint": "fra1.digitaloceanspaces.com",
+    "endpoint": "",
     "region": "us-east-2",
     "bucket": "employee-screenshots"
+  },
+  "s3": {
+    "region": "ap-south-1",
+    "bucket": "",
+    "awsBucket": ""
   }
 }

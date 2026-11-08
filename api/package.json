@@ -24,6 +24,6 @@
   "scripts": {
     "start": "nodemon index.js",
     "build": "cd client && npm run build",
-    "test": "node test/socket-api.test.js && node test/manager-auth.test.js"
+    "test": "node test/socket-api.test.js && node test/manager-auth.test.js && node test/storage.test.js"
   }
 }

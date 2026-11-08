@@ -8,5 +8,10 @@
     "endpoint": "SPACES_ENDPOINT",
     "region": "SPACES_REGION",
     "bucket": "SPACES_BUCKET"
+  },
+  "s3": {
+    "region": "AWS_REGION",
+    "bucket": "S3_BUCKET",
+    "awsBucket": "AWS_BUCKET"
   }
 }
